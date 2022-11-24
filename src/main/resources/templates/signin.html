@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="commons/header :: header"/>
+
+<body>
+    <main>
+        <div class="container-fluid col-md-4">
+            <div class="row">
+                <form method="post" th:action="@{/login}">
+                    <!-- Email input -->
+                    <div class="form-outline mb-4">
+                        <label class="form-label" for="form2Example1" th:text="#{login.usuario}">Usuario</label>
+                        <input type="text" id="form2Example1" class="form-control" name="usuario"/>
+                    </div>
+
+                    <!-- Password input -->
+                    <div class="form-outline mb-4">
+                        <label class="form-label" for="form2Example2" th:text="#{login.contraseña}">Contraseña</label>
+                        <input type="password" id="form2Example2" class="form-control" />
+                    </div>
+
+                    <!-- 2 column grid layout for inline styling -->
+                    <div class="row mb-4">
+                        <div class="col d-flex justify-content-center">
+                            <!-- Checkbox -->
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="form2Example31" checked />
+                                <label class="form-check-label" for="form2Example31" th:text="#{login.recordar}"> Recuerdame </label>
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <!-- Simple link -->
+                            <a href="#!" th:text="#{login.contraseña.olvidada}">¿Olvidó su contraseña?</a>
+                        </div>
+                    </div>
+
+                    <!-- Submit button -->
+                    <div class="row">
+                        <div class="col d-flex justify-content-center">
+                            <button type="submit" class="btn btn-primary" th:text="#{boton.entrar}">Entrar</button>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col d-flex justify-content-center">
+                            <p th:if="${session ne null and session.usuario ne null}" th:text="${session.usuario.usuario}">Sin sesión</p>
+                            <p th:unless="${session ne null and session.usuario ne null}" th:text="#{no.session}"></p>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+
+    </main>
+
+    <div th:replace="commons/footer :: footer" class="container">Footer</div>
+</body>
+
+</html>

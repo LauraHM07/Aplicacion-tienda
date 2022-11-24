@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="commons/header :: header" />
+
+<body>
+
+    <div th:replace="commons/menu :: menu" />
+
+    <div class="container">
+        <div class="row">
+            <h3 th:text="#{productos.titulo}">Productos</h3>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-3">
+                <a th:href="@{/productos/create}" class="btn btn-primary btn-sm mb-3" th:text="#{productos.nuevo.producto}">Nuevo producto</a>
+            </div>
+        </div>
+        <div class="row">
+            <div th:each="producto : ${productos}" class="col-3">
+                <div class="card" style="width: 18rem;">
+                    <div class="card-body">
+                        <h5 th:text="${producto.nombre}" class="card-title">Coca-cola</h5>
+                        <p th:text="${producto.descripcion}" class="card-text">Descripción de la coca-cola.</p>
+                        <p th:text="${producto.precio}" class="card-text">0.00</p>
+
+                        <a href="#" th:href="@{/productos/edit?codigo=}+${producto.codigo}" class="btn btn-primary" role="button"><i class="bi bi-pencil-square"></i></a>
+                        <a href="#" th:href="@{/productos/delete/}+${producto.codigo}" class="btn btn-danger" role="button"><i class="bi bi-trash"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <nav aria-label="Page navigation example">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item"><a class="page-link" href="#" th:text="#{paginado.anterior}">Anterior</a></li>
+                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item"><a class="page-link" href="#" th:text="#{paginado.siguiente}">Siguiente</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+    </div>
+
+    <div th:replace="commons/footer :: footer" class="container" />
+
+</body>
+
+</html>
