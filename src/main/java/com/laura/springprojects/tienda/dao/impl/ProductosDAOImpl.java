@@ -58,13 +58,13 @@ public class ProductosDAOImpl extends JdbcDaoSupport implements ProductosDAO {
         Object[] params = {
             producto.getNombre(),
             producto.getDescripcion(),
-            producto.getPrecio()
+            producto.getPrecio(),
         };
 
         final int[] types = {
             Types.VARCHAR,
             Types.VARCHAR,
-            Types.DOUBLE
+            Types.DOUBLE,
         };
 
         int update = getJdbcTemplate().update(query, params, types);

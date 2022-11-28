@@ -9,7 +9,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-
 import com.laura.springprojects.tienda.model.Usuario;
 
 @Controller
@@ -34,6 +33,19 @@ public class WelcomeController {
 
     //     return "login";
     // }
+
+    @GetMapping(path = "/login")
+    public String bienvenidoGet(Model model, Usuario usuario, HttpSession session){
+        usuario = new Usuario();
+        usuario.setUsuario("Laura");
+
+        String message = messageSource.getMessage("saludar.usuario", new String[]{usuario.getUsuario()}, LocaleContextHolder.getLocale());
+        model.addAttribute("greetings", message);
+
+        session.setAttribute("usuario", usuario);
+
+        return "welcome";
+    }
 
     @PostMapping(path = "/login")
     public String bienvenido(Model model, Usuario usuario, HttpSession session){

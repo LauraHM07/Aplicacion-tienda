@@ -5,6 +5,7 @@ public class Producto {
     private String nombre;
     private String descripcion;
     private Double precio;
+    private Byte[] foto;
 
     public Producto() {
     }
@@ -13,11 +14,12 @@ public class Producto {
         this.codigo = codigo;
     }
 
-    public Producto(int codigo, String nombre, String descripcion, Double precio) {
+    public Producto(int codigo, String nombre, String descripcion, Double precio, Byte[] foto) {
         this.codigo = codigo;
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.precio = precio;
+        this.foto = foto;
     }
 
     public int getCodigo() {
@@ -50,6 +52,14 @@ public class Producto {
 
     public void setPrecio(Double precio) {
         this.precio = precio;
+    }
+
+    public Byte[] getFoto() {
+        return foto;
+    }
+
+    public void setFoto(Byte[] foto) {
+        this.foto = foto;
     }
 
     @Override

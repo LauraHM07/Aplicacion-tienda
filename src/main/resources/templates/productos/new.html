@@ -23,7 +23,7 @@
 
                 <div class="col-8">
                     <h4 class="mb-3" th:text="#{producto.dato}">Datos Producto</h4>
-                    <form class="needs-validation" method="post" th:action="@{/productos/save}" novalidate>
+                    <form class="needs-validation" method="post" th:action="@{/productos/save}" enctype=>
                         <input type="hidden" name="codigo" th:value="${producto.codigo}">
                         <div class="row g-4">
                             <div class="col-sm-6">
@@ -52,6 +52,13 @@
                                 <div class="invalid-feedback">
                                     Precio requerido.
                                 </div>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="imagen" th:text="#{producto.imagen}">Imagen</label>
+                                    <input type="file" class="form-control-file" id="imagen" name="imagen">
+                                  </div>
                             </div>
 
                             <hr class="my-4">
