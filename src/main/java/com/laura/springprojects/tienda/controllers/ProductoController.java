@@ -1,5 +1,6 @@
 package com.laura.springprojects.tienda.controllers;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.laura.springprojects.tienda.model.Producto;
@@ -22,11 +24,11 @@ public class ProductoController {
     @Autowired
     ProductosService productosService;
 
-    @GetMapping(value="/list")
+    @GetMapping(value = "/list")
     public ModelAndView list(Model model) {
 
         List<Producto> productos = productosService.findAll();
-        
+
         ModelAndView modelAndView = new ModelAndView("productos/list");
         modelAndView.addObject("productos", productos);
         modelAndView.addObject("title", "Productos");
@@ -55,8 +57,13 @@ public class ProductoController {
     }
 
     @PostMapping(path = { "/save" })
-    public ModelAndView save(Producto producto) {
-        
+    public ModelAndView save(Producto producto, @RequestParam("imagenForm") MultipartFile multipartFile)
+            throws IOException {
+
+        byte[] imagen = multipartFile.getBytes();
+
+        producto.setFoto(imagen);
+
         productosService.insert(producto);
 
         List<Producto> productos = productosService.findAll();
@@ -68,15 +75,16 @@ public class ProductoController {
     }
 
     @PostMapping(path = { "/update" })
-    public ModelAndView update(Producto producto) {
+    public ModelAndView update(Producto producto, @RequestParam("imagenForm") MultipartFile multipartFile) throws IOException {
 
+        byte[] imagen = multipartFile.getBytes();
+
+        producto.setFoto(imagen);
+        
         productosService.update(producto);
 
-        List<Producto> productos = productosService.findAll();
-
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("productos", productos);
-        modelAndView.setViewName("productos/list");
+        modelAndView.setViewName("redirect:edit?codigo=" + producto.getCodigo());
         return modelAndView;
     }
 
@@ -93,34 +101,4 @@ public class ProductoController {
         modelAndView.setViewName("productos/list");
         return modelAndView;
     }
-
-    // private Producto getProducto(int codigo){
-    //     List<Producto> productos = getProductos();
-    //     int indexOf = productos.indexOf(new Producto(codigo));
-
-    //     return productos.get(indexOf);
-
-    // }
-
-    // private List<Producto> getProductos() {
-
-    //     ArrayList<Producto> productos = new ArrayList<Producto>();
-
-    //     productos.add(new Producto(0, "Cocacola",
-    //             "Coca-Cola es una bebida azucarada gaseosa vendida a nivel mundial en tiendas, restaurantes y máquinas expendedoras en más de doscientos países o territorios",
-    //             1.5));
-    //     productos.add(new Producto(1, "Pepsi",
-    //             "Pepsi es una bebida azucarada gaseosa vendida a nivel mundial en tiendas, restaurantes y máquinas expendedoras en más de doscientos países o territorios",
-    //             1.2));
-    //     productos.add(new Producto(2, "Fanta",
-    //             "Fanta es una bebida azucarada gaseosa vendida a nivel mundial en tiendas, restaurantes y máquinas expendedoras en más de doscientos países o territorios",
-    //             1.0));
-    //     productos.add(new Producto(3, "Sprite",
-    //             "Seven up es una bebida azucarada gaseosa vendida a nivel mundial en tiendas, restaurantes y máquinas expendedoras en más de doscientos países o territorios",
-    //             1.1));
-
-    //     return productos;
-
-    // }
-
 }

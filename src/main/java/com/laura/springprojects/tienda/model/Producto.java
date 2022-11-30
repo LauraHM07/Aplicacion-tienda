@@ -1,11 +1,13 @@
 package com.laura.springprojects.tienda.model;
 
+import com.laura.springprojects.tienda.utils.ImageUtil;
+
 public class Producto {
     private int codigo;
     private String nombre;
     private String descripcion;
     private Double precio;
-    private Byte[] foto;
+    private byte[] foto;
 
     public Producto() {
     }
@@ -14,7 +16,7 @@ public class Producto {
         this.codigo = codigo;
     }
 
-    public Producto(int codigo, String nombre, String descripcion, Double precio, Byte[] foto) {
+    public Producto(int codigo, String nombre, String descripcion, Double precio, byte[] foto) {
         this.codigo = codigo;
         this.nombre = nombre;
         this.descripcion = descripcion;
@@ -54,12 +56,16 @@ public class Producto {
         this.precio = precio;
     }
 
-    public Byte[] getFoto() {
+    public byte[] getFoto() {
         return foto;
     }
 
-    public void setFoto(Byte[] foto) {
-        this.foto = foto;
+    public void setFoto(byte[] image) {
+        this.foto = image;
+    }
+
+    public String getImageView() {
+        return ImageUtil.getImgData(this.foto);
     }
 
     @Override
