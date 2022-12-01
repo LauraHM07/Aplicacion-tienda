@@ -27,32 +27,19 @@
                         <p th:text="${producto.descripcion}" class="card-text">Descripción de la coca-cola.</p>
                         <p th:text="${producto.precio}" class="card-text">0.00</p>
 
-                        <a href="#" th:href="@{/productos/edit?codigo=}+${producto.codigo}" class="btn btn-primary" role="button"><i class="bi bi-pencil-square"></i></a>
+                        <a href="#" th:href="@{/productos/edit/}+${producto.codigo}" class="btn btn-primary" role="button"><i class="bi bi-pencil-square"></i></a>
                         <a href="#" th:href="@{/productos/delete/}+${producto.codigo}" class="btn btn-danger" role="button"><i class="bi bi-trash"></i></a>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <div class="row">
-        <div class="col-12">
-            <nav aria-label="Page navigation example">
-                <ul class="pagination justify-content-center">
-                    <li class="page-item"><a class="page-link" href="#" th:text="#{paginado.anterior}">Anterior</a></li>
-                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item"><a class="page-link" href="#" th:text="#{paginado.siguiente}">Siguiente</a>
-                    </li>
-                </ul>
-            </nav>
-        </div>
-    </div>
+        <hr>
+
+        <div th:replace="commons/pagination :: pagination" />
     </div>
 
     <div th:replace="commons/footer :: footer" class="container" />
-
 </body>
 
 </html>
