@@ -125,7 +125,7 @@ public class ProductoController {
         productosService.delete(codigo);
 
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("productos/list");
+        modelAndView.setViewName("redirect:/productos/list");
         return modelAndView;
     }
 }

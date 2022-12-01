@@ -49,10 +49,10 @@ public class ClienteController {
 
         Page<Cliente> page = clientesService.findAll(pageable);
 
-        List<Cliente> Clientes = page.getContent();
+        List<Cliente> clientes = page.getContent();
 
-        ModelAndView modelAndView = new ModelAndView("Clientes/list");
-        modelAndView.addObject("Clientes", Clientes);
+        ModelAndView modelAndView = new ModelAndView("clientes/list");
+        modelAndView.addObject("clientes", clientes);
 
 
         modelAndView.addObject("numPage", numPage);
@@ -113,7 +113,7 @@ public class ClienteController {
         clientesService.delete(codigo);
 
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("clientes/list");
+        modelAndView.setViewName("redirect:/clientes/list");
         return modelAndView;
     }
 }

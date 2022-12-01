@@ -58,12 +58,12 @@ public class ClientesDAOImpl extends JdbcDaoSupport implements ClientesDAO {
                 cliente.setCodigo(rs.getInt("codigo"));
                 cliente.setNombre(rs.getString("nombre"));
                 cliente.setApellidos(rs.getString("apellidos"));
-                cliente.setDni(rs.getString("dni"));
                 cliente.setEmail(rs.getString("email"));
+                cliente.setDni(rs.getString("dni"));
                 cliente.setTelefono(rs.getString("telefono"));
-                cliente.setDireccion(rs.getString("direccion"));
                 cliente.setVip(rs.getBoolean("vip"));
-        
+                cliente.setDireccion(rs.getString("direccion"));
+
                 return cliente;
             }
             
@@ -91,11 +91,11 @@ public class ClientesDAOImpl extends JdbcDaoSupport implements ClientesDAO {
 
         String query = "insert into clientes (nombre," +
                                             " apellidos, " + 
+                                            " email, " +
                                             " dni, " +
-                                            " email, " + 
                                             " telefono, " + 
-                                            " direccion, " + 
-                                            " vip)" + 
+                                            " vip, " + 
+                                            " direccion)" + 
                                             " values (?, ?, ?, ?, ?, ?, ?)";
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
@@ -108,11 +108,11 @@ public class ClientesDAOImpl extends JdbcDaoSupport implements ClientesDAO {
 
                 ps.setString(1, cliente.getNombre());
                 ps.setString(2, cliente.getApellidos());
-                ps.setString(3, cliente.getDni());
-                ps.setString(4, cliente.getEmail());
+                ps.setString(3, cliente.getEmail());
+                ps.setString(4, cliente.getDni());
                 ps.setString(5, cliente.getTelefono());
-                ps.setString(6, cliente.getDireccion());
-                ps.setBoolean(7, cliente.isVip());
+                ps.setBoolean(6, cliente.isVip());
+                ps.setString(7, cliente.getDireccion());
 
                 return ps;
             }
@@ -126,21 +126,21 @@ public class ClientesDAOImpl extends JdbcDaoSupport implements ClientesDAO {
 
         String query = "update clientes set nombre = ?," +
                                             " apellidos = ?," + 
+                                            " email = ?, " + 
                                             " dni = ?," +
                                             " direccion = ?," + 
-                                            " telefono = ?, " + 
-                                            " email = ?, " + 
-                                            " vip = ?" + 
+                                            " vip = ?," + 
+                                            " telefono = ? " + 
                                             " where codigo = ?";
 
         Object[] params = {
             cliente.getNombre(),
             cliente.getApellidos(),
-            cliente.getDni(),
-            cliente.getDireccion(),
-            cliente.getTelefono(),
             cliente.getEmail(),
+            cliente.getDni(),
+            cliente.getTelefono(),
             cliente.isVip(),
+            cliente.getDireccion(),
             cliente.getCodigo()
         };
 
@@ -150,8 +150,8 @@ public class ClientesDAOImpl extends JdbcDaoSupport implements ClientesDAO {
             Types.VARCHAR,
             Types.VARCHAR,
             Types.VARCHAR,
-            Types.VARCHAR,
             Types.BOOLEAN,
+            Types.VARCHAR,
             Types.INTEGER
         };
 
