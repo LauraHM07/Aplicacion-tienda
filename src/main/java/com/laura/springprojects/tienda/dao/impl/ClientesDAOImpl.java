@@ -128,9 +128,9 @@ public class ClientesDAOImpl extends JdbcDaoSupport implements ClientesDAO {
                                             " apellidos = ?," + 
                                             " email = ?, " + 
                                             " dni = ?," +
-                                            " direccion = ?," + 
+                                            " telefono = ?, " +
                                             " vip = ?," + 
-                                            " telefono = ? " + 
+                                            " direccion = ?" + 
                                             " where codigo = ?";
 
         Object[] params = {
