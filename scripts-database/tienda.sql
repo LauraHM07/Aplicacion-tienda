@@ -1,5 +1,3 @@
-CREATE DATABASE  IF NOT EXISTS `tienda_online` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
-USE `tienda_online`;
 -- MySQL dump 10.13  Distrib 8.0.29, for Linux (x86_64)
 --
 -- Host: 127.0.0.1    Database: tienda_online
@@ -34,7 +32,7 @@ CREATE TABLE `clientes` (
   `vip` tinyint DEFAULT NULL,
   `direccion` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`codigo`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -51,7 +49,7 @@ CREATE TABLE `productos` (
   `precio` double DEFAULT NULL,
   `foto` longblob,
   PRIMARY KEY (`codigo`)
-) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=79 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -61,6 +59,55 @@ CREATE TABLE `productos` (
 --
 -- Dumping routines for database 'tienda_online'
 --
+/*!50003 DROP PROCEDURE IF EXISTS `duplicar_datos_clientes` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`tienda`@`%` PROCEDURE `duplicar_datos_clientes`()
+BEGIN
+
+declare _codigo int;
+declare _nombre varchar(100);
+    declare _apellidos varchar(1000);
+    declare _email varchar(100);
+    declare _dni varchar(45);
+    declare _telefono varchar(45);
+    declare _vip tinyint;
+    declare _direccion varchar(200);
+DECLARE contador INT DEFAULT 0;
+
+declare clientes_cursor cursor for
+    select * from clientes;
+   
+    DECLARE EXIT HANDLER FOR NOT FOUND SET contador = 0;
+
+    open clientes_cursor;
+   
+    loop1: loop
+   
+fetch clientes_cursor into _codigo, _nombre, _apellidos,
+ _email, _dni, _telefono, _vip, _direccion;
+
+insert into clientes (nombre, apellidos, email, dni, telefono, vip, direccion)
+values(_nombre, _apellidos, _email, _dni, _telefono, _vip, _direccion);
+   
+    end loop loop1;
+   
+    close clientes_cursor;
+
+
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 DROP PROCEDURE IF EXISTS `duplicar_datos_productos` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -77,7 +124,7 @@ BEGIN
 declare _codigo int;
 declare _nombre varchar(100);
     declare _descripcion varchar(1000);
-    declare _precio float;
+    declare _precio double;
     declare _foto longblob;
 DECLARE contador INT DEFAULT 0;
 
@@ -117,4 +164,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-12-01 11:07:12
+-- Dump completed on 2022-12-01 12:40:55
