@@ -3,6 +3,11 @@ package com.laura.springprojects.tienda.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,14 +26,42 @@ public class ClienteController {
     @Autowired
     ClientesService clientesService;
 
+    @Value("${pagination.size}")
+    int sizePage;
+
     @GetMapping(value="/list")
     public ModelAndView list(Model model) {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("redirect:list/1/codigo/asc");
 
-        List<Cliente> clientes = clientesService.findAll();
+        return modelAndView;
+    }
 
-        ModelAndView modelAndView = new ModelAndView("clientes/list");
-        modelAndView.addObject("clientes", clientes);
-        modelAndView.addObject("title", "clientes");
+    @GetMapping(value = "/list/{numPage}/{fieldSort}/{directionSort}")
+    public ModelAndView listPage(Model model,
+            @PathVariable("numPage") Integer numPage,
+            @PathVariable("fieldSort") String fieldSort,
+            @PathVariable("directionSort") String directionSort) {
+
+
+        Pageable pageable = PageRequest.of(numPage - 1, sizePage,
+            directionSort.equals("asc") ? Sort.by(fieldSort).ascending() : Sort.by(fieldSort).descending());
+
+        Page<Cliente> page = clientesService.findAll(pageable);
+
+        List<Cliente> Clientes = page.getContent();
+
+        ModelAndView modelAndView = new ModelAndView("Clientes/list");
+        modelAndView.addObject("Clientes", Clientes);
+
+
+        modelAndView.addObject("numPage", numPage);
+        modelAndView.addObject("totalPages", page.getTotalPages());
+        modelAndView.addObject("totalElements", page.getTotalElements());
+
+        modelAndView.addObject("fieldSort", fieldSort);
+        modelAndView.addObject("directionSort", directionSort.equals("asc") ? "asc" : "desc");
+
         return modelAndView;
     }
 
@@ -58,11 +91,8 @@ public class ClienteController {
         
         clientesService.insert(cliente);
 
-        List<Cliente> clientes = clientesService.findAll();
-
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("clientes", clientes);
-        modelAndView.setViewName("clientes/list");
+        modelAndView.setViewName("redirect:edit/" + cliente.getCodigo());
         return modelAndView;
     }
 
@@ -71,11 +101,8 @@ public class ClienteController {
 
         clientesService.update(cliente);
 
-        List<Cliente> clientes = clientesService.findAll();
-
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("clientes", clientes);
-        modelAndView.setViewName("clientes/list");
+        modelAndView.setViewName("redirect:edit/" + cliente.getCodigo());
         return modelAndView;
     }
 
@@ -85,38 +112,8 @@ public class ClienteController {
 
         clientesService.delete(codigo);
 
-        List<Cliente> clientes = clientesService.findAll();
-
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("clientes", clientes);
         modelAndView.setViewName("clientes/list");
         return modelAndView;
     }
-        
-
-    // private Cliente getCliente(int codigo){
-    //     List<Cliente> clientes = clientesService.findAll();
-    //     int indexOf = clientes.indexOf(new Cliente(codigo));
-
-    //     return clientes.get(indexOf);
-
-    // }
-
-    // private List<Cliente> getClientes() {
-
-    //     // List<Cliente> clientes = (List<Cliente>) request.getSession().getAttribute("clientes");
-
-    //     // if (clientes == null) {
-    //         List<Cliente> clientes = new ArrayList<>();
-
-    //         clientes.add(new Cliente(1, "Laura", "Haro Molina", "laurahm@gmail.com","12345678Z", "111111111","Calle 1", false));
-    //         clientes.add(new Cliente(2, "Pepe", "Pérez Pérez", "pepepp@gmail.com", "12345678Z", "222222222","Calle 2", true));
-    //         clientes.add(new Cliente(3, "María", "Casas Martínez", "mariacm@gmail.com", "12345678Z", "333333333","Calle 3", false));
-    //         clientes.add(new Cliente(4, "Luis", "López López", "luisll@gmail.com", "12345678Z", "444444444","Calle 4", false));
-    
-    //         // request.getSession().setAttribute("clientes", clientes);
-    //     // }
-
-    //     return clientes;
-    // }
 }

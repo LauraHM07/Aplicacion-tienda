@@ -6,7 +6,6 @@ import com.laura.springprojects.tienda.model.Producto;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Order;
@@ -98,21 +97,6 @@ public class ProductosDAOImpl extends JdbcDaoSupport implements ProductosDAO {
                                             " precio," + 
                                             " foto)" + 
                                             " values (?, ?, ?, ?)";
-        // Object[] params = {
-        //     producto.getNombre(),
-        //     producto.getDescripcion(),
-        //     producto.getPrecio(),
-        //     producto.getImage()
-        // };
-
-        // final int[] types = {
-        //     Types.VARCHAR,
-        //     Types.VARCHAR,
-        //     Types.DOUBLE,
-        //     Types.BLOB
-        // };
-        
-        // int update = getJdbcTemplate().update(query, params, types);
         
         KeyHolder keyHolder = new GeneratedKeyHolder();
 

@@ -99,9 +99,8 @@ public class ProductoController {
 
         productosService.insert(producto);
 
-
         ModelAndView modelAndView = new ModelAndView();
-         modelAndView.setViewName("redirect:edit/" + producto.getCodigo());
+        modelAndView.setViewName("redirect:edit?codigo=" + producto.getCodigo());
         return modelAndView;
     }
 
@@ -124,7 +123,6 @@ public class ProductoController {
             @PathVariable(name = "codigo", required = true) int codigo) {
 
         productosService.delete(codigo);
-
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("productos/list");

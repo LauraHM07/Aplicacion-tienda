@@ -27,7 +27,7 @@
                         <p th:text="${producto.descripcion}" class="card-text">Descripción de la coca-cola.</p>
                         <p th:text="${producto.precio}" class="card-text">0.00</p>
 
-                        <a href="#" th:href="@{/productos/edit/}+${producto.codigo}" class="btn btn-primary" role="button"><i class="bi bi-pencil-square"></i></a>
+                        <a href="#" th:href="@{/productos/edit?codigo=}+${producto.codigo}" class="btn btn-primary" role="button"><i class="bi bi-pencil-square"></i></a>
                         <a href="#" th:href="@{/productos/delete/}+${producto.codigo}" class="btn btn-danger" role="button"><i class="bi bi-trash"></i></a>
                     </div>
                 </div>
@@ -35,7 +35,7 @@
         </div>
 
         <hr>
-
+        
         <div th:replace="commons/pagination :: pagination" />
     </div>
 
