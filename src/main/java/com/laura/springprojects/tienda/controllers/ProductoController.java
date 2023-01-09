@@ -68,9 +68,9 @@ public class ProductoController {
         return modelAndView;
     }
 
-    @GetMapping(path = { "/edit" })
+    @GetMapping(path = { "/edit/{codigo}" })
     public ModelAndView edit(
-            @RequestParam(name = "codigo", required = true) int codigo) {
+            @PathVariable(name = "codigo", required = true) int codigo) {
 
         Producto producto = productosService.findById(codigo);
 
@@ -128,4 +128,17 @@ public class ProductoController {
         modelAndView.setViewName("redirect:/productos/list");
         return modelAndView;
     }
+
+    @GetMapping(path = { "/buy/{codigo}" })
+    public ModelAndView buy(
+            @PathVariable(name = "codigo", required = true) int codigo) {
+
+        Producto producto = productosService.findById(codigo);
+
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("producto", producto);
+        modelAndView.setViewName("productos/buy");
+        return modelAndView;
+    }
+
 }
