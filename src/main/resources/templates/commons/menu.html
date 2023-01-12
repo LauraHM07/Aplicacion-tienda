@@ -36,7 +36,7 @@
                         </li>
                     </ul>
 
-                    <a href="cesta.html" th:href="@{/pedidos/cesta/}+${session.pedido.cliente.codigo}" th:if="${session ne null and session.pedido ne null}" class="btn btn-secondary">
+                    <a href="#" th:href="@{/cesta/edit}" th:if="${session ne null and session.pedido ne null}" class="btn btn-secondary">
                         <i class="bi bi-cart2"></i>
                     </a>
                     

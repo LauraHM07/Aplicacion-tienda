@@ -52,8 +52,8 @@ public class Producto {
         return precio;
     }
 
-    public void setPrecio(Double precio) {
-        this.precio = precio;
+    public void setPrecio(double d) {
+        this.precio = d;
     }
 
     public byte[] getFoto() {
