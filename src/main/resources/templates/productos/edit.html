@@ -67,12 +67,8 @@
                             <div class="row" th:if="${!cesta}">
                                 <div class="col-sm-12">
                                     <div class="btn-group">
-                                        <a class="btn btn-primary" th:href="@{/productos/list}" href="#" role="button"
-                                            th:text="#{boton.cancelar}">Cancelar</a>
-                                        <button class="btn btn-primary" type="submit"
-                                            th:text="#{boton.actualizar}">Actualizar</button>
-                                        <a class="btn btn-primary" th:href="@{/productos/delete/}+${producto.codigo}"
-                                            href="#" role="button"><i class="bi bi-trash"></i></a>
+                                        <button class="btn btn-primary" type="submit" th:text="#{boton.actualizar}">Actualizar</button>
+                                        <a class="btn btn-danger" th:href="@{/productos/list}" href="#" role="button" th:text="#{boton.cancelar}">Cancelar</a>
                                     </div>
                                 </div>
                             </div>
