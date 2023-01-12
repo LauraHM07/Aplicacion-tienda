@@ -60,7 +60,7 @@ public class DetallePedidoDAOImpl extends JdbcDaoSupport implements DetallePedid
     public List<DetallePedido> findDetalle(Pedido pedido) {
 
     
-            String query = "SELECT dp.*, p.nombre nombre_producto, p.precio precio FROM detalle_pedido dp, productos p" + 
+            String query = "SELECT dp.*, p.nombre nombre, p.precio precio FROM detalle_pedido dp, productos p" + 
             " where dp.codigo_producto = p.codigo and codigo_pedido = ?";
     
 
@@ -80,7 +80,7 @@ public class DetallePedidoDAOImpl extends JdbcDaoSupport implements DetallePedid
                     detalle.setSubtotal(rs.getFloat("total"));
                     Producto producto = new Producto();
                     producto.setCodigo(rs.getInt("codigo_producto"));
-                    producto.setNombre(rs.getString("nombre_producto"));
+                    producto.setNombre(rs.getString("nombre"));
                     producto.setPrecio(rs.getFloat("precio"));
                     detalle.setProducto(producto);
                     return detalle;
