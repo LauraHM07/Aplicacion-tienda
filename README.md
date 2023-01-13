@@ -1,5 +1,5 @@
 # Aplicacion-tienda
 
-Mantenimiento de una tienda con Productos, Clientes, Proveedores y Vendedores.
+Mantenimiento de una tienda con Productos, Clientes, Proveedores, Vendedores y Pedidos.
 
-Se ha usado: Spring Boot, MYSQL y Boostrap.
+Usando: Spring Boot, MYSQL y Boostrap.
