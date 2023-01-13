@@ -46,12 +46,17 @@ DROP TABLE IF EXISTS `detalle_pedido`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `detalle_pedido` (
   `codigo` int NOT NULL AUTO_INCREMENT,
-  `precio` double DEFAULT NULL,
-  `total` double DEFAULT NULL,
-  `codigo_pedido` int DEFAULT NULL,
-  `codigo_producto` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`codigo`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `cantidad` int NOT NULL,
+  `precio` double NOT NULL,
+  `total` double NOT NULL,
+  `codigo_pedido` int NOT NULL,
+  `codigo_producto` int NOT NULL,
+  PRIMARY KEY (`codigo`),
+  KEY `fk_detalle_pedido_1_idx` (`codigo_pedido`),
+  KEY `fk_detalle_pedido_2_idx` (`codigo_producto`),
+  CONSTRAINT `fk_detalle_pedido_1` FOREIGN KEY (`codigo_pedido`) REFERENCES `pedidos` (`codigo`),
+  CONSTRAINT `fk_detalle_pedido_2` FOREIGN KEY (`codigo_producto`) REFERENCES `productos` (`codigo`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -63,11 +68,13 @@ DROP TABLE IF EXISTS `pedidos`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `pedidos` (
   `codigo` int NOT NULL AUTO_INCREMENT,
-  `codigo_cliente` int DEFAULT NULL,
   `total` double DEFAULT NULL,
   `fecha` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`codigo`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `codigo_cliente` int DEFAULT NULL,
+  PRIMARY KEY (`codigo`),
+  KEY `fk_pedidos_1_idx` (`codigo_cliente`),
+  CONSTRAINT `fk_pedidos_1` FOREIGN KEY (`codigo_cliente`) REFERENCES `clientes` (`codigo`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -96,4 +103,4 @@ CREATE TABLE `productos` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-01-12 12:24:34
+-- Dump completed on 2023-01-13 10:15:42
