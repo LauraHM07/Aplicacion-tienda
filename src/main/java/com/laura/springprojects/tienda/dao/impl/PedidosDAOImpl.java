@@ -126,6 +126,18 @@ public class PedidosDAOImpl extends JdbcDaoSupport implements PedidosDAO {
     @Override
     public void delete(int codigo) {
 
+        String query2 = "delete from detalle_pedido where codigo_pedido = ?";
+
+        Object[] params2 = {
+            codigo
+        };
+
+        final int[] types2 = {
+            Types.INTEGER
+        };
+
+        getJdbcTemplate().update(query2, params2, types2);
+
         String query = "delete from pedidos where codigo = ?";
 
         Object[] params = {
@@ -135,6 +147,7 @@ public class PedidosDAOImpl extends JdbcDaoSupport implements PedidosDAO {
         final int[] types = {
                 Types.INTEGER
         };
+
         getJdbcTemplate().update(query, params, types);
 
     }
