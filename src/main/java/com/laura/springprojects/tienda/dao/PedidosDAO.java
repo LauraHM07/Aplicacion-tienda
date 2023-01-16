@@ -8,7 +8,7 @@ import com.laura.springprojects.tienda.model.Pedido;
 public interface PedidosDAO {
     public Page<Pedido> findAll(Pageable page);
 
-    public Pedido findById(int codigo);
+    public Pedido find(int codigo);
 
     public void insert(Pedido pedido);
 

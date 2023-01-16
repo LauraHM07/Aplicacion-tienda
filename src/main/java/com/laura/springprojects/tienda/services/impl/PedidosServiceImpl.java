@@ -33,7 +33,7 @@ public class PedidosServiceImpl implements PedidosService {
 
     @Override
     public Pedido find(int codigo) {
-        Pedido pedido = pedidosDAO.findById(codigo);
+        Pedido pedido = pedidosDAO.find(codigo);
 
         Cliente cliente = clientesDAO.findById(pedido.getCliente().getCodigo());
 

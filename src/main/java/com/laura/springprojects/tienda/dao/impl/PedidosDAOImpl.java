@@ -71,9 +71,9 @@ public class PedidosDAOImpl extends JdbcDaoSupport implements PedidosDAO {
     }
 
     @Override
-    public Pedido findById(int codigo) {
+    public Pedido find(int codigo) {
 
-        String query = "select p.*, c.nombre from pedidos p where p.codigo = ?";
+        String query = "select p.* from pedidos p where p.codigo = ?";
 
         Object params[] = { codigo };
         int types[] = { Types.INTEGER };
@@ -154,7 +154,19 @@ public class PedidosDAOImpl extends JdbcDaoSupport implements PedidosDAO {
 
     @Override
     public void update(Pedido pedido) {
-        // TODO Auto-generated method stub
+        String query = "update pedidos set total = ?," +
+                                            "fecha = ?,";
+        
+        Object[] params = {
+            pedido.getTotal(),
+            pedido.getFecha()
+        };
 
+        final int[] types = {
+            Types.DOUBLE,
+            Types.DATE
+        };
+
+        int update = getJdbcTemplate().update(query, params, types);
     }
 }
