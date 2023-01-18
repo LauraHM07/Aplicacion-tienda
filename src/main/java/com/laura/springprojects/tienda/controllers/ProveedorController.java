@@ -1,8 +1,15 @@
 package com.laura.springprojects.tienda.controllers;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,27 +19,51 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.laura.springprojects.tienda.model.Proveedor;
+import com.laura.springprojects.tienda.services.ProveedoresService;
 
 @Controller
 @RequestMapping("/proveedores")
 public class ProveedorController {
 
+    @Autowired
+    ProveedoresService proveedoresService;
+
+    @Value("${pagination.size}")
+    int sizePage;
+
     @GetMapping(value = "/list")
     public ModelAndView list(Model model) {
 
-        ModelAndView modelAndView = new ModelAndView("proveedores/list");
-        modelAndView.addObject("proveedores", getProveedores());
-        modelAndView.addObject("title", "proveedores");
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("redirect:list/1/codigo/asc");
+
         return modelAndView;
     }
 
-    @GetMapping(path = { "/edit/{codigo}" })
-    public ModelAndView edit(
-            @PathVariable(name = "codigo", required = true) int codigo) {
+    @GetMapping(value = "/list/{numPage}/{fieldSort}/{directionSort}")
+    public ModelAndView listPage(Model model,
+            @PathVariable("numPage") Integer numPage,
+            @PathVariable("fieldSort") String fieldSort,
+            @PathVariable("directionSort") String directionSort) {
 
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("proveedor", getProveedor(codigo));
-        modelAndView.setViewName("proveedores/edit");
+
+        Pageable pageable = PageRequest.of(numPage - 1, sizePage,
+            directionSort.equals("asc") ? Sort.by(fieldSort).ascending() : Sort.by(fieldSort).descending());
+
+        Page<Proveedor> page = proveedoresService.findAll(pageable);
+
+        List<Proveedor> proveedores = page.getContent();
+
+        ModelAndView modelAndView = new ModelAndView("proveedores/list");
+        modelAndView.addObject("proveedores", proveedores);
+
+        modelAndView.addObject("numPage", numPage);
+        modelAndView.addObject("totalPages", page.getTotalPages());
+        modelAndView.addObject("totalElements", page.getTotalElements());
+
+        modelAndView.addObject("fieldSort", fieldSort);
+        modelAndView.addObject("directionSort", directionSort.equals("asc") ? "asc" : "desc");
+
         return modelAndView;
     }
 
@@ -45,34 +76,37 @@ public class ProveedorController {
         return modelAndView;
     }
 
+    @GetMapping(path = { "/edit/{codigo}" })
+    public ModelAndView edit(
+            @PathVariable(name = "codigo", required = true) int codigo) {
+
+        Proveedor proveedor = proveedoresService.findById(codigo);
+
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("proveedor", proveedor);
+        modelAndView.setViewName("proveedores/edit");
+
+        return modelAndView;
+    }
+
     @PostMapping(path = { "/save" })
     public ModelAndView save(Proveedor proveedor) {
 
-        int round = (int) (Math.random() * (100 + 5));
-
-        proveedor.setCodigo(round);
-
-        List<Proveedor> proveedores = getProveedores();
-        proveedores.add(proveedor);
+        proveedoresService.insert(proveedor);
 
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("proveedores", proveedores);
-        modelAndView.setViewName("proveedores/list");
+        modelAndView.setViewName("redirect:edit/" + proveedor.getCodigo());
         return modelAndView;
     }
 
     @PostMapping(path = { "/update" })
     public ModelAndView update(Proveedor proveedor) {
 
-        List<Proveedor> proveedores = getProveedores();
-
-        int indexOf = proveedores.indexOf(proveedor);
-
-        proveedores.set(indexOf, proveedor);
+        proveedoresService.update(proveedor);
 
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("proveedores", proveedores);
-        modelAndView.setViewName("proveedores/list");
+        modelAndView.setViewName("redirect:edit/" + proveedor.getCodigo());
+
         return modelAndView;
     }
 
@@ -80,38 +114,11 @@ public class ProveedorController {
     public ModelAndView delete(
             @PathVariable(name = "codigo", required = true) int codigo) {
 
-        List<Proveedor> proveedores = getProveedores();
-        proveedores.remove(getProveedor(codigo));
+        proveedoresService.delete(codigo);
+
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("proveedores", proveedores);
-        modelAndView.setViewName("proveedores/list");
+        modelAndView.setViewName("redirect:/proveedores/list");
+
         return modelAndView;
-    }
-
-    private Proveedor getProveedor(int codigo) {
-        List<Proveedor> proveedores = getProveedores();
-        int indexOf = proveedores.indexOf(new Proveedor(codigo));
-
-        return proveedores.get(indexOf);
-    }
-
-    private List<Proveedor> getProveedores() {
-
-        // List<Proveedor> proveedores = (List<Proveedor>)
-        // request.getSession().getAttribute("proveedores");
-
-        // if (proveedores == null) {
-        List<Proveedor> proveedores = new ArrayList<>();
-
-        proveedores.add(new Proveedor(1,"Juan", "Sánchez Herreros"));
-        proveedores.add(new Proveedor(2,"Marcos", "Murillo Luna"));
-        proveedores.add(new Proveedor(3,"Marta", "Galletero Zafra"));
-        proveedores.add(new Proveedor(4,"Luisa", "Haro Ruíz"));
-
-        // request.getSession().setAttribute("proveedores", proveedores);
-        // }
-
-        return proveedores;
-
     }
 }

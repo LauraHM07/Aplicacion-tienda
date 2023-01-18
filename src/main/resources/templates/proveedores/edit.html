@@ -17,7 +17,7 @@
 
                         <div class="row g-4">
                             <div class="col-sm-6">
-                                <label for="nombre" class="form-label" th:text="#{proveedor.nombre}">Nombre</label>
+                                <label for="nombre" class="form-label" th:text="#{nombre}">Nombre</label>
 
                                 <input type="text" class="form-control" id="nombre" name="nombre" placeholder="" th:value="${proveedor.nombre}" value="" required>
                                 
@@ -27,12 +27,47 @@
                             </div>
 
                             <div class="col-sm-6">
-                                <label for="lastName" class="form-label" th:text="#{proveedor.apellidos}">Apellidos</label>
+                                <label for="lastName" class="form-label" th:text="#{apellidos}">Apellidos</label>
 
                                 <input type="text" class="form-control" id="apellidos" name="apellidos" placeholder="" th:value="${proveedor.apellidos}" value="" required>
                                 
                                 <div class="invalid-feedback">
                                     Apellidos requeridos.
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <label for="dni" class="form-label" th:text="#{dni}">DNI</label>
+                                
+                                <input type="text" class="form-control" id="dni" name="dni" placeholder="" th:value="${proveedor.dni}" value="" required>
+                                
+                                <div class="invalid-feedback">
+                                    Dni requerido.
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <label for="telefono" class="form-label" th:text="#{telefono}">Teléfono <span class="text-muted" th:text="#{opcional}">(Opcional)</span></label>
+                                <input type="text" class="form-control" id="telefono" name="telefono" placeholder="" th:value="${proveedor.telefono}" value="">
+                            </div>
+
+                            <div class="col-sm-12">
+                                <label for="address" class="form-label" th:text="#{direccion}">Address</label>
+                                
+                                <input type="text" class="form-control" id="address" name="direccion" th:value="${proveedor.direccion}" required>
+                                
+                                <div class="invalid-feedback">
+                                    Please enter your shipping address.
+                                </div>
+                            </div>
+
+                            <div class="col-sm-12">
+                                <label for="email" class="form-label" th:text="#{email}">Email <span class="text-muted" th:text="#{opcional}">(Opcional)</span></label>
+                                
+                                <input type="email" class="form-control" id="email" name="email" th:value="${proveedor.email}">
+                                
+                                <div class="invalid-feedback">
+                                    Please enter a valid email address for shipping updates.
                                 </div>
                             </div>
 

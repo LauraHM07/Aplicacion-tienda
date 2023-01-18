@@ -24,10 +24,10 @@
 
                 <thead>
                     <tr>
-                        <th scope="col" th:text="#{vendedor.codigo}">Código</th>
-                        <th scope="col" th:text="#{vendedor.nombre}">Nombre</th>
-                        <th scope="col" th:text="#{vendedor.apellidos}">Apellidos</th>
-                        <th scope="col" th:text="#{vendedor.puesto}">Puesto</th>
+                        <th scope="col" th:text="#{codigo}">Código</th>
+                        <th scope="col" th:text="#{nombre}">Nombre</th>
+                        <th scope="col" th:text="#{apellidos}">Apellidos</th>
+                        <th scope="col" th:text="#{puesto}">Puesto</th>
                         <th scope="col"></th>
                     </tr>
                 </thead>
@@ -50,19 +50,7 @@
             </table>
         </div>
 
-        <div class="row">
-            <div class="col-12">
-                <nav aria-label="Page navigation example">
-                    <ul class="pagination justify-content-center">
-                        <li class="page-item"><a class="page-link" href="#" th:text="#{paginado.anterior}">Anterior</a></li>
-                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item"><a class="page-link" href="#" th:text="#{paginado.siguiente}">Siguiente</a></li>
-                    </ul>
-                </nav>
-            </div>
-        </div>
+        <div th:replace="commons/pagination :: pagination" />
     </div>
 
     <div th:replace="commons/footer :: footer" class="container" />

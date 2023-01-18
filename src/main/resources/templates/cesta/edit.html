@@ -20,7 +20,7 @@
                                     th:text="|${cliente.nombre} ${cliente.apellidos} ${cliente.dni} ${cliente.email}|"></label>
                                 <label class="form-label"
                                     th:text="|${cliente.direccion} ${cliente.apellidos} ${cliente.dni}|"></label>
-                                <label class="form-check-label" for="vip" th:text="#{cliente.vip}">Es cliente
+                                <label class="form-check-label" for="vip" th:text="#{vip}">Es cliente
                                     VIP</label>
                             </div>
                     </form>
@@ -32,11 +32,11 @@
                     <caption th:text="#{clientes.listado.titulo}">Lista de clientes</caption>
                     <thead>
                         <tr>
-                            <th scope="col" th:text="#{cliente.codigo}">Código</th>
-                            <th scope="col" th:text="#{cliente.nombre}">Nombre</th>
-                            <th scope="col">Precio</th>
-                            <th scope="col">Cantidad</th>
-                            <th scope="col">Subtotal</th>
+                            <th scope="col" th:text="#{codigo}">Código</th>
+                            <th scope="col" th:text="#{nombre}">Nombre</th>
+                            <th scope="col" th:text="#{precio}">Precio</th>
+                            <th scope="col" th:text="#{cantidad}">Cantidad</th>
+                            <th scope="col" th:text="#{subtotal}">Subtotal</th>
                             <th scope="col"></th>
                         </tr>
                     </thead>
@@ -52,7 +52,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td colspan="4" style="text-align: right;">Total</td>
+                            <td colspan="4" style="text-align: right;" th:text="#{total}">Total</td>
                             <td th:text="${pedido.totalCesta}"></td>
                         </tr>
                     </tbody>

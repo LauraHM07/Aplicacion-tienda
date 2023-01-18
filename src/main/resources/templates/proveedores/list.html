@@ -24,9 +24,13 @@
 
                 <thead>
                     <tr>
-                        <th scope="col" th:text="#{proveedor.codigo}">Código</th>
-                        <th scope="col" th:text="#{proveedor.nombre}">Nombre</th>
-                        <th scope="col" th:text="#{proveedor.apellidos}">Apellidos</th>
+                        <th scope="col" th:text="#{codigo}">Código</th>
+                        <th scope="col" th:text="#{nombre}">Nombre</th>
+                        <th scope="col" th:text="#{apellidos}">Apellidos</th>
+                        <th scope="col" th:text="#{dni}">DNI</th>
+                        <th scope="col" th:text="#{email}">Email</th>
+                        <th scope="col" th:text="#{telefono}">Teléfono</th>
+                        <th scope="col" th:text="#{direccion}">Dirección</th>
                         <th scope="col"></th>
                     </tr>
                 </thead>
@@ -36,6 +40,10 @@
                         <th th:text="${proveedor.codigo}" scope="row">1</th>
                         <td th:text="${proveedor.nombre}">Mark</td>
                         <td th:text="${proveedor.apellidos}">Mark</td>
+                        <td th:text="${proveedor.dni}">Mark</td>
+                        <td th:text="${proveedor.email}">Mark</td>
+                        <td th:text="${proveedor.telefono}">Mark</td>
+                        <td th:text="${proveedor.direccion}">Mark</td>
                         <td>
                             <a class="btn btn-primary" th:href="@{/proveedores/edit/}+${proveedor.codigo}" href="#" role="button"><i class="bi bi-pencil-square"></i></a>
                             <a class="btn btn-danger" th:href="@{/proveedores/delete/}+${proveedor.codigo}" href="#" role="button"><i class="bi bi-trash"></i></a>
@@ -45,19 +53,7 @@
             </table>
         </div>
 
-        <div class="row">
-            <div class="col-12">
-                <nav aria-label="Page navigation example">
-                    <ul class="pagination justify-content-center">
-                        <li class="page-item"><a class="page-link" href="#" th:text="#{paginado.anterior}">Anterior</a> </li>
-                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item"><a class="page-link" href="#" th:text="#{paginado.siguiente}">Siguiente</a></li>
-                    </ul>
-                </nav>
-            </div>
-        </div>
+        <div th:replace="commons/pagination :: pagination" />
     </div>
 
     <div th:replace="commons/footer :: footer" class="container" />

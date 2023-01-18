@@ -68,6 +68,15 @@ public class ClienteController {
         return modelAndView;
     }
 
+    @GetMapping(path = { "/create" })
+    public ModelAndView create(Cliente cliente) {
+
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("cliente", new Cliente());
+        modelAndView.setViewName("clientes/new");
+        return modelAndView;
+    }
+
     @GetMapping(path = { "/edit/{codigo}" })
     public ModelAndView edit(
             @PathVariable(name = "codigo", required = true) int codigo) {
@@ -77,15 +86,7 @@ public class ClienteController {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("cliente", cliente);
         modelAndView.setViewName("clientes/edit");
-        return modelAndView;
-    }
 
-    @GetMapping(path = { "/create" })
-    public ModelAndView create(Cliente cliente) {
-
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("cliente", new Cliente());
-        modelAndView.setViewName("clientes/new");
         return modelAndView;
     }
 
@@ -96,6 +97,7 @@ public class ClienteController {
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("redirect:edit/" + cliente.getCodigo());
+
         return modelAndView;
     }
 
@@ -106,6 +108,7 @@ public class ClienteController {
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("redirect:edit/" + cliente.getCodigo());
+
         return modelAndView;
     }
 
@@ -117,6 +120,7 @@ public class ClienteController {
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("redirect:/clientes/list");
+        
         return modelAndView;
     }
 
