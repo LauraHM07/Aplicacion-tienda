@@ -7,24 +7,24 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import com.laura.springprojects.tienda.model.Cliente;
-import com.laura.springprojects.tienda.repository.ClienteRepository;
-import com.laura.springprojects.tienda.services.ClientesService;
+import com.laura.springprojects.tienda.model.Vendedor;
+import com.laura.springprojects.tienda.repository.VendedorRepository;
+import com.laura.springprojects.tienda.services.VendedoresService;
 
 @Service
-public class ClientesServiceImpl implements ClientesService {
-
+public class VendedoresServiceImpl implements VendedoresService{
+    
     @Autowired
-    ClienteRepository repository;
+    VendedorRepository repository;
 
     @Override
-    public Page<Cliente> findAll(Pageable page) {
+    public Page<Vendedor> findAll(Pageable page) {
         return repository.findAll(page);
     }
 
     @Override
-    public Cliente findById(int codigo) {
-        Optional<Cliente> findById = repository.findById(codigo);
+    public Vendedor findById(int codigo) {
+        Optional<Vendedor> findById = repository.findById(codigo);
 
         if(findById != null) {
             return findById.get();
@@ -34,13 +34,13 @@ public class ClientesServiceImpl implements ClientesService {
     }
 
     @Override
-    public void insert(Cliente cliente){
-        repository.save(cliente);
+    public void insert(Vendedor vendedor){
+        repository.save(vendedor);
     }
 
     @Override
-    public void update(Cliente cliente) {
-        repository.save(cliente);
+    public void update(Vendedor vendedor) {
+        repository.save(vendedor);
     }
 
     @Override

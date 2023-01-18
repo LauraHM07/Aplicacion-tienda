@@ -1,8 +1,13 @@
 package com.laura.springprojects.tienda.controllers;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,27 +17,52 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.laura.springprojects.tienda.model.Vendedor;
+import com.laura.springprojects.tienda.services.ProveedoresService;
+import com.laura.springprojects.tienda.services.VendedoresService;
 
 @Controller
 @RequestMapping("/vendedores")
 public class VendedorController {
 
-    @GetMapping(value="/list")
+    @Autowired
+    VendedoresService vendedoresService;
+
+    @Value("${pagination.size}")
+    int sizePage;
+
+    @GetMapping(value = "/list")
     public ModelAndView list(Model model) {
 
-        ModelAndView modelAndView = new ModelAndView("vendedores/list");
-        modelAndView.addObject("vendedores", getVendedores());
-        modelAndView.addObject("title", "vendedores");
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("redirect:list/1/codigo/asc");
+
         return modelAndView;
     }
 
-    @GetMapping(path = { "/edit/{codigo}" })
-    public ModelAndView edit(
-            @PathVariable(name = "codigo", required = true) int codigo) {
+    @GetMapping(value = "/list/{numPage}/{fieldSort}/{directionSort}")
+    public ModelAndView listPage(Model model,
+            @PathVariable("numPage") Integer numPage,
+            @PathVariable("fieldSort") String fieldSort,
+            @PathVariable("directionSort") String directionSort) {
 
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("vendedor", getVendedor(codigo));
-        modelAndView.setViewName("vendedores/edit");
+
+        Pageable pageable = PageRequest.of(numPage - 1, sizePage,
+            directionSort.equals("asc") ? Sort.by(fieldSort).ascending() : Sort.by(fieldSort).descending());
+
+        Page<Vendedor> page = vendedoresService.findAll(pageable);
+
+        List<Vendedor> vendedores = page.getContent();
+
+        ModelAndView modelAndView = new ModelAndView("vendedores/list");
+        modelAndView.addObject("vendedores", vendedores);
+
+        modelAndView.addObject("numPage", numPage);
+        modelAndView.addObject("totalPages", page.getTotalPages());
+        modelAndView.addObject("totalElements", page.getTotalElements());
+
+        modelAndView.addObject("fieldSort", fieldSort);
+        modelAndView.addObject("directionSort", directionSort.equals("asc") ? "asc" : "desc");
+
         return modelAndView;
     }
 
@@ -45,34 +75,35 @@ public class VendedorController {
         return modelAndView;
     }
 
+    @GetMapping(path = { "/edit/{codigo}" })
+    public ModelAndView edit(
+            @PathVariable(name = "codigo", required = true) int codigo) {
+
+        Vendedor vendedor = vendedoresService.findById(codigo);
+
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("vendedor", vendedor);
+        modelAndView.setViewName("vendedores/edit");
+        return modelAndView;
+    }
+
     @PostMapping(path = { "/save" })
     public ModelAndView save(Vendedor vendedor) {
 
-        int round = (int) (Math.random()*(100+5));
-
-        vendedor.setCodigo(round);
-
-        List<Vendedor> vendedores = getVendedores();
-        vendedores.add(vendedor);
+        vendedoresService.insert(vendedor);
 
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("vendedores", vendedores);
-        modelAndView.setViewName("vendedores/list");
+        modelAndView.setViewName("redirect:edit/" + vendedor.getCodigo());
         return modelAndView;
     }
 
     @PostMapping(path = { "/update" })
     public ModelAndView update(Vendedor vendedor) {
 
-        List<Vendedor> vendedores = getVendedores();
-
-        int indexOf = vendedores.indexOf(vendedor);
-
-        vendedores.set(indexOf, vendedor);
+        vendedoresService.update(vendedor);
 
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("vendedores", vendedores);
-        modelAndView.setViewName("vendedores/list");
+        modelAndView.setViewName("redirect:edit/" + vendedor.getCodigo());
         return modelAndView;
     }
 
@@ -80,38 +111,10 @@ public class VendedorController {
     public ModelAndView delete(
             @PathVariable(name = "codigo", required = true) int codigo) {
 
-        List<Vendedor> vendedores = getVendedores();
-        vendedores.remove(getVendedor(codigo));
+        vendedoresService.delete(codigo);
+
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("vendedores", vendedores);
-        modelAndView.setViewName("vendedores/list");
+        modelAndView.setViewName("redirect:/vendedores/list");
         return modelAndView;
-    }
-        
-
-    private Vendedor getVendedor(int codigo){
-        List<Vendedor> vendedores = getVendedores();
-        int indexOf = vendedores.indexOf(new Vendedor(codigo));
-
-        return vendedores.get(indexOf);
-
-    }
-
-    private List<Vendedor> getVendedores() {
-
-        // List<vendedor> vendedores = (List<vendedor>) request.getSession().getAttribute("vendedores");
-
-        // if (vendedores == null) {
-            List<Vendedor> vendedores = new ArrayList<>();
-
-            vendedores.add(new Vendedor(1, "Christian", "Molina Ramírez", "Jefe"));
-            vendedores.add(new Vendedor(2, "Miriam", "Maldonado Rosa", "SubJefe"));
-            vendedores.add(new Vendedor(3, "Jose Manuel", "Molina Cortés", "Empleado"));
-            vendedores.add(new Vendedor(4, "Virginia", "Martos Martín", "Empleado"));
-    
-            // request.getSession().setAttribute("vendedores", vendedores);
-        // }
-
-        return vendedores;
     }
 }
