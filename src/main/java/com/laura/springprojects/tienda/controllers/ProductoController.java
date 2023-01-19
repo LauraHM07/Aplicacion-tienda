@@ -116,10 +116,6 @@ public class ProductoController {
 
         byte[] imagen = multipartFile.getBytes();
 
-        if(imagen == null) {
-            imagen = producto.getFoto();
-        } 
-        
         producto.setFoto(imagen);
         
         productosService.update(producto);

@@ -40,6 +40,11 @@ public class ProductosServiceImpl implements ProductosService {
 
     @Override
     public void update(Producto producto) {
+
+        if(producto.getFoto() == null || producto.getFoto().length == 0) {
+            producto.setFoto(this.findById(producto.getCodigo()).getFoto());
+        }
+
         repository.save(producto);
     }
 
