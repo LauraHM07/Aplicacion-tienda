@@ -4,13 +4,25 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class Pedido {
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.Transient;
 
+@Entity
+public class Pedido {
+    @Id
+    @GeneratedValue
     private int codigo;
     private double total;
     private Date fecha;
-    
+    @OneToMany()
+    @JoinColumn(name="codigo_cliente")
     private Cliente cliente;
+    @Transient
     private List<DetallePedido> detallePedidos;
 
     public Pedido() {
