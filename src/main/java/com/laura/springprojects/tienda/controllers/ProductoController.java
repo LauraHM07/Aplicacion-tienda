@@ -107,7 +107,7 @@ public class ProductoController {
         productosService.insert(producto);
 
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("redirect:edit?codigo=" + producto.getCodigo());
+        modelAndView.setViewName("redirect:edit/" + producto.getCodigo() + "/false");
         return modelAndView;
     }
 
@@ -116,12 +116,16 @@ public class ProductoController {
 
         byte[] imagen = multipartFile.getBytes();
 
+        if(imagen == null) {
+            imagen = producto.getFoto();
+        } 
+        
         producto.setFoto(imagen);
         
         productosService.update(producto);
 
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("redirect:edit?codigo=" + producto.getCodigo());
+        modelAndView.setViewName("redirect:edit/" + producto.getCodigo() + "/false");
         return modelAndView;
     }
 

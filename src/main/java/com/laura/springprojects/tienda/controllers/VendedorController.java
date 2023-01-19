@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.laura.springprojects.tienda.model.Vendedor;
-import com.laura.springprojects.tienda.services.ProveedoresService;
 import com.laura.springprojects.tienda.services.VendedoresService;
 
 @Controller
