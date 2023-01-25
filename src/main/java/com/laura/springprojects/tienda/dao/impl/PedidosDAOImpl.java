@@ -42,12 +42,12 @@ public class PedidosDAOImpl extends JdbcDaoSupport implements PedidosDAO {
     @Override
     public Page<Pedido> findAll(Pageable page) {
 
-        String queryCount = "select count(1) from pedidos";
+        String queryCount = "select count(1) from pedido";
         Integer total = getJdbcTemplate().queryForObject(queryCount, Integer.class);
 
         Order order = !page.getSort().isEmpty() ? page.getSort().toList().get(0) : Order.by("codigo");
 
-        String query = "SELECT p.*, c.nombre FROM pedidos p, clientes c where p.codigo_cliente = c.codigo ORDER BY "
+        String query = "SELECT p.*, c.nombre FROM pedido p, clientes c where p.codigo_cliente = c.codigo ORDER BY "
                 + order.getProperty() + " "
                 + order.getDirection().name() + " LIMIT " + page.getPageSize() + " OFFSET " + page.getOffset();
 
@@ -73,7 +73,7 @@ public class PedidosDAOImpl extends JdbcDaoSupport implements PedidosDAO {
     @Override
     public Pedido find(int codigo) {
 
-        String query = "select p.* from pedidos p where p.codigo = ?";
+        String query = "select p.* from pedido p where p.codigo = ?";
 
         Object params[] = { codigo };
         int types[] = { Types.INTEGER };
@@ -99,7 +99,7 @@ public class PedidosDAOImpl extends JdbcDaoSupport implements PedidosDAO {
     @Override
     public void insert(Pedido pedido) {
 
-        String query = "insert into pedidos (codigo_cliente," +
+        String query = "insert into pedido (codigo_cliente," +
                 " total," +
                 " fecha)" +
                 " values (?, ?, ?)";
@@ -138,7 +138,7 @@ public class PedidosDAOImpl extends JdbcDaoSupport implements PedidosDAO {
 
         getJdbcTemplate().update(query2, params2, types2);
 
-        String query = "delete from pedidos where codigo = ?";
+        String query = "delete from pedido where codigo = ?";
 
         Object[] params = {
                 codigo
@@ -154,7 +154,7 @@ public class PedidosDAOImpl extends JdbcDaoSupport implements PedidosDAO {
 
     @Override
     public void update(Pedido pedido) {
-        String query = "update pedidos set total = ?," +
+        String query = "update pedido set total = ?," +
                                             "fecha = ?,";
         
         Object[] params = {
