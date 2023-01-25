@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 
@@ -19,8 +20,8 @@ public class Pedido {
     private int codigo;
     private double total;
     private Date fecha;
-    @OneToMany()
-    @JoinColumn(name="codigo_cliente")
+    @ManyToOne
+    @JoinColumn(name="cliente", nullable = false)
     private Cliente cliente;
     @Transient
     private List<DetallePedido> detallePedidos;
