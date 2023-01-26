@@ -11,9 +11,9 @@ public interface VendedoresService {
 
     public Vendedor findById(int codigo);
 
-    public void insert(Vendedor cliente);
+    public void insert(Vendedor vendedor);
 
-    public void update(Vendedor cliente);
+    public void update(Vendedor vendedor);
 
     public void delete(int codigo);
 }

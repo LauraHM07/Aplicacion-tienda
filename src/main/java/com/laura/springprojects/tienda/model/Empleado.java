@@ -19,6 +19,7 @@ public class Empleado {
     private String dni;
     private String telefono;
     private String direccion;
+    private boolean vip;
 
     @ManyToMany(mappedBy = "empleados")
     private List<Departamento> departamentos;
@@ -30,9 +31,7 @@ public class Empleado {
         this.codigo = codigo;
     }
 
-    public Empleado(int codigo, String nombre, String apellidos, String email, String dni, String telefono,
-            String direccion,
-            boolean vip) {
+    public Empleado(int codigo, String nombre, String apellidos, String email, String dni, String telefono, String direccion, boolean vip) {
         this.codigo = codigo;
         this.nombre = nombre;
         this.apellidos = apellidos;
@@ -40,6 +39,7 @@ public class Empleado {
         this.dni = dni;
         this.telefono = telefono;
         this.direccion = direccion;
+        this.vip = vip;
     }
 
     public int getCodigo() {
@@ -98,6 +98,14 @@ public class Empleado {
         this.direccion = direccion;
     }
 
+    public boolean isVip() {
+        return vip;
+    }
+
+    public void setVip(boolean vip) {
+        this.vip = vip;
+    }
+
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -119,12 +127,4 @@ public class Empleado {
             return false;
         return true;
     }
-
-    // public List<Pedido> getPedidos() {
-    //     return pedidos;
-    // }
-
-    // public void setPedidos(List<Pedido> pedidos) {
-    //     this.pedidos = pedidos;
-    // }
 }
