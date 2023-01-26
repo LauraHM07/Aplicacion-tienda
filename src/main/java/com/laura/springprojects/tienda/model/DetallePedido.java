@@ -54,16 +54,13 @@ public class DetallePedido {
         return pedido;
     }
 
-
     public void setPedido(Pedido pedido) {
         this.pedido = pedido;
     }
 
-
     public DetallePedidoId getId() {
         return id;
     }
-
 
     public void setId(DetallePedidoId id) {
         this.id = id;

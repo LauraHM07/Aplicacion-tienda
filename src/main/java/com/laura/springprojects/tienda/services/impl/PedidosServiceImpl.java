@@ -60,11 +60,8 @@ public class PedidosServiceImpl implements PedidosService {
     @Override
     @Transactional
     public void delete(int codigo) {
-        Pedido pedido = new Pedido();
-        pedido.setCodigo(codigo);
 
         repositoryDetalle.deleteByPedidoCodigo(codigo);
-
         repositoryPedido.deleteById(codigo);        
     }
 }

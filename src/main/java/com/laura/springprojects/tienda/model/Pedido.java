@@ -18,7 +18,7 @@ public class Pedido {
     @Id
     @GeneratedValue
     private int codigo;
-    private double total;
+    private float total;
     private Date fecha;
 
     @ManyToOne
@@ -40,7 +40,7 @@ public class Pedido {
         this.codigo = codigo;
     }
 
-    public double getTotalCesta() {
+    public float getTotalCesta() {
 
         total = 0;
         for (DetallePedido detalle : this.detallePedidos) {
@@ -50,7 +50,7 @@ public class Pedido {
         return total;
     }
 
-    public void setTotal(double total) {
+    public void setTotal(float total) {
         this.total = total;
     }
 

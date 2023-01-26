@@ -26,17 +26,17 @@
                             <a class="nav-link" th:href="@{/clientes/list}" href="#"
                                 th:text="#{menu.clientes}">Clientes</a>
                         </li>
-                        <li class="nav-item">
+                        <!-- <li class="nav-item">
                             <a class="nav-link" th:href="@{/proveedores/list}" href="#"
                                 th:text="#{menu.proveedores}">Proveedores</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" th:href="@{/vendedores/list}" href="#"
                                 th:text="#{menu.vendedores}">Vendedores</a>
-                        </li>
+                        </li> -->
                         <li class="nav-item">
                             <a class="nav-link" th:href="@{/pedidos/list}" href="#"
-                                th:text="#{menu.pedidos}" th:if="${session ne null and session.pedido ne null}">Pedidos</a>
+                                th:text="#{menu.pedidos}">Pedidos</a>
                         </li>
                     </ul>
 
