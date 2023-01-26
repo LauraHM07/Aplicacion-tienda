@@ -1,12 +1,12 @@
-package com.laura.springprojects.tienda.dao;
+// package com.laura.springprojects.tienda.dao;
 
-import java.util.List;
+// import java.util.List;
 
-import com.laura.springprojects.tienda.model.DetallePedido;
-import com.laura.springprojects.tienda.model.Pedido;
+// import com.laura.springprojects.tienda.model.DetallePedido;
+// import com.laura.springprojects.tienda.model.Pedido;
 
-public interface DetallePedidoDAO {
-    public void insert(Pedido pedido, DetallePedido detallePedido);
+// public interface DetallePedidoDAO {
+//     public void insert(Pedido pedido, DetallePedido detallePedido);
 
-    public List<DetallePedido> findDetalle(Pedido pedido);
-}
+//     public List<DetallePedido> findDetalle(Pedido pedido);
+// }

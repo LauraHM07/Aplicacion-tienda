@@ -1,20 +1,20 @@
-package com.laura.springprojects.tienda.dao;
+// package com.laura.springprojects.tienda.dao;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+// import org.springframework.data.domain.Page;
+// import org.springframework.data.domain.Pageable;
 
-import com.laura.springprojects.tienda.model.Producto;
+// import com.laura.springprojects.tienda.model.Producto;
 
-public interface ProductosDAO {
-    public Page<Producto> findAll(Pageable page);
+// public interface ProductosDAO {
+//     public Page<Producto> findAll(Pageable page);
 
-    public Producto findById(int codigo);
+//     public Producto findById(int codigo);
 
-    public void insert(Producto producto);
+//     public void insert(Producto producto);
 
-    public void update(Producto producto);
+//     public void update(Producto producto);
 
-    public void updateImage(Producto producto);
+//     public void updateImage(Producto producto);
 
-    public void delete(int codigo);
-}
+//     public void delete(int codigo);
+// }

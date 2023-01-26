@@ -15,7 +15,7 @@ public class Producto {
     private int codigo;
     private String nombre;
     private String descripcion;
-    private Double precio;
+    private float precio;
     @Lob
     @Column(length = 100000)
     private byte[] foto;
@@ -27,7 +27,7 @@ public class Producto {
         this.codigo = codigo;
     }
 
-    public Producto(int codigo, String nombre, String descripcion, Double precio, byte[] foto) {
+    public Producto(int codigo, String nombre, String descripcion, float precio, byte[] foto) {
         this.codigo = codigo;
         this.nombre = nombre;
         this.descripcion = descripcion;
@@ -59,12 +59,12 @@ public class Producto {
         this.descripcion = descripcion;
     }
 
-    public Double getPrecio() {
+    public float getPrecio() {
         return precio;
     }
 
-    public void setPrecio(double d) {
-        this.precio = d;
+    public void setPrecio(float precio) {
+        this.precio = precio;
     }
 
     public byte[] getFoto() {

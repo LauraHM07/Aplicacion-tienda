@@ -4,25 +4,26 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.PrePersist;
+import javax.persistence.Table;
 import javax.persistence.Transient;
 
 @Entity
+@Table(name="pedido")
 public class Pedido {
     @Id
     @GeneratedValue
     private int codigo;
     private double total;
     private Date fecha;
+
     @ManyToOne
-    @JoinColumn(name="cliente", nullable = false)
     private Cliente cliente;
+
     @Transient
     private List<DetallePedido> detallePedidos;
 
@@ -31,7 +32,7 @@ public class Pedido {
         this.detallePedidos = new ArrayList<DetallePedido>();
     }
 
-    public long getCodigo() {
+    public int getCodigo() {
         return codigo;
     }
 
@@ -79,5 +80,10 @@ public class Pedido {
 
     public double getTotal() {
         return total;
+    }
+
+    @PrePersist
+    private void prePersistFecha(){
+        this.fecha = new Date();
     }
 }

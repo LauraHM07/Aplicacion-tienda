@@ -1,11 +1,27 @@
 package com.laura.springprojects.tienda.model;
 
+import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.ManyToOne;
+import javax.persistence.MapsId;
+
+@Entity
 public class DetallePedido {
 
-    private int codigo;
+    @EmbeddedId
+    private DetallePedidoId id = new DetallePedidoId();
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = true)
+    @MapsId("producto_codigo")
     private Producto producto;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = true)
+    @MapsId("pedido_codigo")
+    private Pedido pedido;
+
     private int cantidad;
-    private double subtotal;
+    private float subtotal;
     
     public DetallePedido() {
     }
@@ -26,21 +42,30 @@ public class DetallePedido {
         this.cantidad = cantidad;
     }
 
-    public double getSubtotal() {
+    public float getSubtotal() {
         return subtotal;
     }
 
-    public void setSubtotal(double d) {
-        this.subtotal = d;
+    public void setSubtotal(float subtotal) {
+        this.subtotal = subtotal;
+    }
+
+    public Pedido getPedido() {
+        return pedido;
     }
 
 
-    public int getCodigo() {
-        return codigo;
+    public void setPedido(Pedido pedido) {
+        this.pedido = pedido;
     }
 
 
-    public void setCodigo(int codigo) {
-        this.codigo = codigo;
+    public DetallePedidoId getId() {
+        return id;
+    }
+
+
+    public void setId(DetallePedidoId id) {
+        this.id = id;
     }
 }
