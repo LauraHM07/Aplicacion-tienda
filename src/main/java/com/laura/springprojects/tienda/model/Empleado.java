@@ -106,6 +106,14 @@ public class Empleado {
         this.vip = vip;
     }
 
+    public List<Departamento> getDepartamentos() {
+        return departamentos;
+    }
+
+    public void setDepartamentos(List<Departamento> departamentos) {
+        this.departamentos = departamentos;
+    }
+
     @Override
     public int hashCode() {
         final int prime = 31;

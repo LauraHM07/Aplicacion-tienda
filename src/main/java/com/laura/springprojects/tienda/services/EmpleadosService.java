@@ -11,9 +11,9 @@ public interface EmpleadosService {
 
     public Empleado findById(int codigo);
 
-    public void insert(Empleado cliente);
+    public void insert(Empleado empleado);
 
-    public void update(Empleado cliente);
+    public void update(Empleado empleado);
 
     public void delete(int codigo);
 }

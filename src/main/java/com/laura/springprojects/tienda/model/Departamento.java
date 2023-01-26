@@ -37,34 +37,29 @@ public class Departamento {
         this.codigo = codigo;
     }
 
-    /**
-     * @return int return the codigo
-     */
     public int getCodigo() {
         return codigo;
     }
 
-    /**
-     * @param codigo the codigo to set
-     */
     public void setCodigo(int codigo) {
         this.codigo = codigo;
     }
 
-    /**
-     * @return String return the nombre
-     */
     public String getNombre() {
         return nombre;
     }
 
-    /**
-     * @param nombre the nombre to set
-     */
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
 
+    public List<Empleado> getEmpleados() {
+        return empleados;
+    }
+
+    public void setEmpleados(List<Empleado> empleados) {
+        this.empleados = empleados;
+    }
     
     @Override
     public int hashCode() {
@@ -86,13 +81,5 @@ public class Departamento {
         if (codigo != other.codigo)
             return false;
         return true;
-    }
-
-    public List<Empleado> getEmpleados() {
-        return empleados;
-    }
-
-    public void setEmpleados(List<Empleado> empleados) {
-        this.empleados = empleados;
     }
 }
