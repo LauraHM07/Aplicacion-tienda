@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="commons/header :: header"/>
+<head th:replace="commons/header :: header" />
 
 <body>
     <div th:replace="commons/menu :: menu" />
@@ -20,11 +20,26 @@
                             <div class="col-sm-6">
                                 <label for="nombre" class="form-label" th:text="#{nombre}">Nombre</label>
 
-                                <input type="text" class="form-control" id="nombre" name="nombre" placeholder="" th:value="${departamento.nombre}" value="" required>
-                               
+                                <input type="text" class="form-control" id="nombre" name="nombre" placeholder=""
+                                    th:value="${departamento.nombre}" value="" required>
+
                                 <div class="invalid-feedback">
                                     Nombre requerido.
                                 </div>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <label for="empleados" class="form-label"
+                                    th:text="#{empleados.titulo}">Empleados</label>
+
+                                <ul class="list-group">
+                                    <li class="list-group-item" th:each="empleado : ${empleados}">
+                                        <input class="form-check-input me-1" type="checkbox" value=""
+                                            id="firstCheckbox">
+                                        <label class="form-check-label" for="firstCheckbox"
+                                            th:text="|${empleado.nombre} ${empleado.apellidos}|"></label>
+                                    </li>
+                                </ul>
                             </div>
                         </div>
 
@@ -32,8 +47,10 @@
 
                         <div class="col-sm-12">
                             <div class="btn-group">
-                                <button class="btn btn-primary" type="submit" th:text="#{boton.actualizar}">Actualizar</button>
-                                <a class="btn btn-danger" th:href="@{/departamentos/list}" href="#" role="button" th:text="#{boton.cancelar}">Cancelar</a>
+                                <button class="btn btn-primary" type="submit"
+                                    th:text="#{boton.actualizar}">Actualizar</button>
+                                <a class="btn btn-danger" th:href="@{/departamentos/list}" href="#" role="button"
+                                    th:text="#{boton.cancelar}">Cancelar</a>
                             </div>
                         </div>
                     </form>

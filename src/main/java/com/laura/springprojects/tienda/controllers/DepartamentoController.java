@@ -17,7 +17,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.laura.springprojects.tienda.model.Departamento;
+import com.laura.springprojects.tienda.model.Empleado;
 import com.laura.springprojects.tienda.services.DepartamentosService;
+import com.laura.springprojects.tienda.services.EmpleadosService;
 
 @Controller
 @RequestMapping("/departamentos")
@@ -25,6 +27,9 @@ public class DepartamentoController {
     
     @Autowired
     DepartamentosService departamentosService;
+
+    @Autowired
+    EmpleadosService empleadosService;
     
     @Value("${pagination.size}")
     int sizePage;
@@ -79,9 +84,11 @@ public class DepartamentoController {
             @PathVariable(name = "codigo", required = true) int codigo) {
 
         Departamento departamento = departamentosService.findById(codigo);
+        List<Empleado> empleados = empleadosService.findAll();
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("departamento", departamento);
+        modelAndView.addObject("empleados", empleados);
         modelAndView.setViewName("departamentos/edit");
         return modelAndView;
     }

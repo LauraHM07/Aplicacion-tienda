@@ -4,6 +4,7 @@ import com.laura.springprojects.tienda.model.Empleado;
 import com.laura.springprojects.tienda.repository.EmpleadoRepository;
 import com.laura.springprojects.tienda.services.EmpleadosService;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,11 @@ public class EmpleadosServiceImpl implements EmpleadosService{
     @Override
     public Page<Empleado> findAll(Pageable page) {
         return repository.findAll(page);
+    }
+
+    @Override
+    public List<Empleado> findAll() {
+        return repository.findAll();
     }
 
     @Override
