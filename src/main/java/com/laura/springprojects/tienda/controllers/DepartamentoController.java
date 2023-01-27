@@ -85,10 +85,12 @@ public class DepartamentoController {
 
         Departamento departamento = departamentosService.findById(codigo);
         List<Empleado> empleados = empleadosService.findAll();
+        List<Empleado> empleadosDepartamento = departamento.getEmpleados();
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("departamento", departamento);
         modelAndView.addObject("empleados", empleados);
+        modelAndView.addObject("empleadosDepartamento", empleadosDepartamento);
         modelAndView.setViewName("departamentos/edit");
         return modelAndView;
     }
