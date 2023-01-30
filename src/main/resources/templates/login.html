@@ -11,12 +11,12 @@
             <div class="row align-items-md-stretch">
                 <div class="col-md-6">
                     <div class="h-100 p-5 text-bg-dark rounded-3">
-                        <h1 th:text="${greetings}"></h1>
+                        <h1 th:text="|${greetings} mensaje|"></h1>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="h-100 p-5 text-bg-dark rounded-3">
-                        <h3 th:text="#{saludar.usuario(${session.usuario.usuario})}"> Hola, {0}</h3>
+                        <h1 th:text="#{saludar.usuario(${session.usuario.usuario})}"> Hola, {0}</h1>
                     </div>
                 </div>
             </div>

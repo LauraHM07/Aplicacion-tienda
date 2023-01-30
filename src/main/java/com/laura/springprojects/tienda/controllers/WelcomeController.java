@@ -44,7 +44,7 @@ public class WelcomeController {
 
         session.setAttribute("usuario", usuario);
 
-        return "welcome";
+        return "login";
     }
 
     @PostMapping(path = "/login")
