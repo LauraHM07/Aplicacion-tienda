@@ -110,11 +110,11 @@ public class Empleado {
         this.vip = vip;
     }
 
-    public boolean isDepartamento() {
+    public boolean perteneceDepartamento() {
         return departamento;
     }
 
-    public void setDepartamento(boolean departamento) {
+    public void setPerteneceDepartamento(boolean departamento) {
         this.departamento = departamento;
     }
 

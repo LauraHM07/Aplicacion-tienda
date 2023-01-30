@@ -34,17 +34,8 @@
 
                                 <ul class="list-group">
                                     <li class="list-group-item" th:each="empleado : ${empleados}">
-                                        <div th:each="empleadoDepartamento : ${empleadosDepartamento}">
-                                            <div th:if="${empleado.codigo} == ${empleadoDepartamento.codigo}">
-                                                <input class="form-check-input me-1" type="checkbox" value="" id="firstCheckbox" checked="true">
-                                                <label class="form-check-label" for="firstCheckbox" th:text="|${empleado.nombre} ${empleado.apellidos}|"></label>
-                                            </div>
-                                            
-                                            <div th:unless="${empleado.codigo} == ${empleadoDepartamento.codigo}">
-                                                <input class="form-check-input me-1" type="checkbox" value="" id="firstCheckbox">
-                                                <label class="form-check-label" for="firstCheckbox" th:text="|${empleado.nombre} ${empleado.apellidos}|"></label>
-                                            </div>
-                                        </div>
+                                            <input class="form-check-input me-1" type="checkbox" value="" id="firstCheckbox" th:checked="${empleado.perteneceDepartamento} ? 'true' : 'false'">
+                                            <label class="form-check-label" for="firstCheckbox" th:text="|${empleado.nombre} ${empleado.apellidos}|"></label>
                                     </li>
                                 </ul>
                             </div>

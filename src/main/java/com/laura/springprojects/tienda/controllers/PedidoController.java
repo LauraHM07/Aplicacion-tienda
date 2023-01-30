@@ -76,7 +76,6 @@ public class PedidoController {
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("pedido", pedido);
-
         modelAndView.setViewName("pedidos/edit");
         return modelAndView;
     }

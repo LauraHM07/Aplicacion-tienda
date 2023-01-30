@@ -84,13 +84,25 @@ public class DepartamentoController {
             @PathVariable(name = "codigo", required = true) int codigo) {
 
         Departamento departamento = departamentosService.findById(codigo);
+
         List<Empleado> empleados = empleadosService.findAll();
         List<Empleado> empleadosDepartamento = departamento.getEmpleados();
+
+        for(Empleado empleado : empleados) {
+            for(Empleado empDep : empleadosDepartamento) {
+                if(empleado.getCodigo() == empDep.getCodigo()) {
+                    empleado.setPerteneceDepartamento(true);
+
+                    break;
+                } else {
+                    empleado.setPerteneceDepartamento(false);
+                }
+            }
+        }
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("departamento", departamento);
         modelAndView.addObject("empleados", empleados);
-        modelAndView.addObject("empleadosDepartamento", empleadosDepartamento);
         modelAndView.setViewName("departamentos/edit");
         return modelAndView;
     }
