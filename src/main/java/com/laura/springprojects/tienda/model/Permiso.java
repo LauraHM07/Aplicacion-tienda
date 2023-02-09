@@ -3,38 +3,31 @@ package com.laura.springprojects.tienda.model;
 import java.util.List;
 
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.JoinColumn;
 
 @Entity
-public class Usuario {
+public class Permiso {
+    
     @Id
     @GeneratedValue
     private int codigo;
     private String nombre;
-    private String password;
-    private String email;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "user_permission", joinColumns = @JoinColumn(name = "Usuario_codigo"), inverseJoinColumns = @JoinColumn(name = "Permiso_codigo"))
-    private List<Permiso> permissions;
-    
-    public Usuario() {
+    @ManyToMany(mappedBy = "permissions")
+    private List<Usuario> users;
+
+    public Permiso() {
     }
 
-    public Usuario(int codigo) {
+    public Permiso(int codigo) {
         this.codigo = codigo;
     }
 
-    public Usuario(int codigo, String nombre, String password, String email) {
+    public Permiso(int codigo, String nombre) {
         this.codigo = codigo;
         this.nombre = nombre;
-        this.password = password;
-        this.email = email;
     }
 
     public int getCodigo() {
@@ -53,28 +46,12 @@ public class Usuario {
         this.nombre = nombre;
     }
 
-    public String getPassword() {
-        return password;
+    public List<Usuario> getUsers() {
+        return users;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public List<Permiso> getPermissions() {
-        return permissions;
-    }
-
-    public void setPermissions(List<Permiso> permissions) {
-        this.permissions = permissions;
+    public void setUsers(List<Usuario> users) {
+        this.users = users;
     }
 
     @Override
@@ -93,7 +70,7 @@ public class Usuario {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        Usuario other = (Usuario) obj;
+        Permiso other = (Permiso) obj;
         if (codigo != other.codigo)
             return false;
         return true;

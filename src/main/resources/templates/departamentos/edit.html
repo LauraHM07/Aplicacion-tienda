@@ -34,7 +34,7 @@
 
                                 <ul class="list-group">
                                     <li class="list-group-item" th:each="empleado : ${empleados}">
-                                            <input class="form-check-input me-1" type="checkbox" value="" id="firstCheckbox" th:checked="${empleado.perteneceDepartamento} ? 'true' : 'false'">
+                                            <input class="form-check-input me-1" type="checkbox" name="dep" value="" id="firstCheckbox" th:checked="${empleado.perteneceDepartamento} ? 'true' : 'false'">
                                             <label class="form-check-label" for="firstCheckbox" th:text="|${empleado.nombre} ${empleado.apellidos}|"></label>
                                     </li>
                                 </ul>
@@ -45,10 +45,8 @@
 
                         <div class="col-sm-12">
                             <div class="btn-group">
-                                <button class="btn btn-primary" type="submit"
-                                    th:text="#{boton.actualizar}">Actualizar</button>
-                                <a class="btn btn-danger" th:href="@{/departamentos/list}" href="#" role="button"
-                                    th:text="#{boton.cancelar}">Cancelar</a>
+                                <button class="btn btn-primary" type="submit" th:text="#{boton.actualizar}">Actualizar</button>
+                                <a class="btn btn-danger" th:href="@{/departamentos/list}" href="#" role="button" th:text="#{boton.cancelar}">Cancelar</a>
                             </div>
                         </div>
                     </form>

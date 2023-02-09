@@ -1,5 +1,6 @@
 package com.laura.springprojects.tienda.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.laura.springprojects.tienda.model.Departamento;
@@ -84,21 +86,21 @@ public class DepartamentoController {
             @PathVariable(name = "codigo", required = true) int codigo) {
 
         Departamento departamento = departamentosService.findById(codigo);
-
         List<Empleado> empleados = empleadosService.findAll();
         List<Empleado> empleadosDepartamento = departamento.getEmpleados();
 
-        for(Empleado empleado : empleados) {
-            for(Empleado empDep : empleadosDepartamento) {
-                if(empleado.getCodigo() == empDep.getCodigo()) {
+        for (Empleado empleado : empleados){
+            for (Empleado empDep : empleadosDepartamento){
+                if (empleado.getCodigo() == empDep.getCodigo()){
                     empleado.setPerteneceDepartamento(true);
-
                     break;
                 } else {
                     empleado.setPerteneceDepartamento(false);
                 }
             }
         }
+
+        departamento.setEmpleados(empleadosDepartamento);
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("departamento", departamento);
@@ -118,8 +120,25 @@ public class DepartamentoController {
     }
 
     @PostMapping(path = { "/update" })
-    public ModelAndView update(Departamento departamento) {
+    public ModelAndView update(Departamento departamento, @RequestParam("dep") String[] checkboxValue) {
+        
+        departamentosService.findById(departamento.getCodigo());
+        List<Empleado> empleados = empleadosService.findAll();
+        List<Empleado> empleadosDep = new ArrayList<Empleado>();
 
+        for (Empleado empleado : empleados){
+            for (int i = 0; i < checkboxValue.length; i++){
+                int valor = Integer.parseInt(checkboxValue[i]);
+
+                if (empleado.getCodigo() == valor){
+                    empleadosDep.add(empleado);
+                    
+                    break;
+                }
+            }
+        }
+
+        departamento.setEmpleados(empleadosDep);
         departamentosService.update(departamento);
 
         ModelAndView modelAndView = new ModelAndView();
