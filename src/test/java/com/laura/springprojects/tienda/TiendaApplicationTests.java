@@ -29,76 +29,76 @@ class TiendaApplicationTests {
 
 	@Test
 	void crearUsuariosTest() {
-		Usuario u1 = new Usuario();
-		u1.setCodigo(1);
-		u1.setNombre("usuario1");
-		u1.setPassword(encoder.encode("1111"));
-		u1.setEmail("user1@gmail.com");
+		Usuario usuario1 = new Usuario();
+		usuario1.setCodigo(1);
+		usuario1.setNombre("usuario1");
+		usuario1.setPassword(encoder.encode("1111"));
+		usuario1.setEmail("user1@gmail.com");
 
-		Usuario u2 = new Usuario();
-		u2.setCodigo(2);
-		u2.setNombre("usuario2");
-		u2.setPassword(encoder.encode("2222"));
-		u2.setEmail("user2@gmail.com");
+		Usuario usuario2 = new Usuario();
+		usuario2.setCodigo(2);
+		usuario2.setNombre("usuario2");
+		usuario2.setPassword(encoder.encode("2222"));
+		usuario2.setEmail("user2@gmail.com");
 
-		Usuario u3 = new Usuario();
-		u3.setCodigo(3);
-		u3.setNombre("usuario3");
-		u3.setPassword(encoder.encode("3333"));
-		u3.setEmail("user3@gmail.com");
+		Usuario usuario3 = new Usuario();
+		usuario3.setCodigo(3);
+		usuario3.setNombre("usuario3");
+		usuario3.setPassword(encoder.encode("3333"));
+		usuario3.setEmail("user3@gmail.com");
 
-		Usuario u4 = new Usuario();
-		u4.setCodigo(4);
-		u4.setNombre("usuario4");
-		u4.setEmail("user4@gmail.com");
-		u4.setPassword(encoder.encode("4444"));
+		Usuario usuario4 = new Usuario();
+		usuario4.setCodigo(4);
+		usuario4.setNombre("usuario4");
+		usuario4.setEmail("user4@gmail.com");
+		usuario4.setPassword(encoder.encode("4444"));
 
-		Permiso p1 = new Permiso();
-		p1.setCodigo(1);
-		p1.setNombre("ADMIN");
+		Permiso permisoAdmin = new Permiso();
+		permisoAdmin.setCodigo(1);
+		permisoAdmin.setNombre("ADMIN");
 
-		Permiso p2 = new Permiso();
-		p2.setCodigo(2);
-		p2.setNombre("USER");
+		Permiso permisoUsuario = new Permiso();
+		permisoUsuario.setCodigo(2);
+		permisoUsuario.setNombre("USER");
 
-		Permiso p3 = new Permiso();
-		p3.setCodigo(3);
-		p3.setNombre("CLIENTE");
+		Permiso permisoCliente = new Permiso();
+		permisoCliente.setCodigo(3);
+		permisoCliente.setNombre("CLIENTE");
 
-		Permiso p4 = new Permiso();
-		p4.setCodigo(4);
-		p4.setNombre("CESTA");
+		Permiso permisoCesta = new Permiso();
+		permisoCesta.setCodigo(4);
+		permisoCesta.setNombre("CESTA");
 
-		List<Permiso> permisos1 = new ArrayList<Permiso>();
-		permisos1.add(p1);
-		permisos1.add(p2);
-		permisos1.add(p3);
-		permisos1.add(p4);
+		List<Permiso> permisosTodos = new ArrayList<Permiso>();
+		permisosTodos.add(permisoAdmin);
+		permisosTodos.add(permisoUsuario);
+		permisosTodos.add(permisoCliente);
+		permisosTodos.add(permisoCesta);
 
-		List<Permiso> permisos2 = new ArrayList<Permiso>();
-		permisos2.add(p2);
-		permisos2.add(p4);
+		List<Permiso> permisosPedidos = new ArrayList<Permiso>();
+		permisosPedidos.add(permisoUsuario);
+		permisosPedidos.add(permisoCesta);
 
-		List<Permiso> permisos3 = new ArrayList<Permiso>();
-		permisos3.add(p2);
-		permisos3.add(p3);
-		permisos3.add(p4);
+		List<Permiso> permisosClientes = new ArrayList<Permiso>();
+		permisosClientes.add(permisoUsuario);
+		permisosClientes.add(permisoCliente);
+		permisosClientes.add(permisoCesta);
 
-		u1.setPermissions(permisos1);
-		u2.setPermissions(permisos2);
-		u3.setPermissions(permisos3);
+		usuario1.setPermissions(permisosTodos);
+		usuario2.setPermissions(permisosPedidos);
+		usuario3.setPermissions(permisosClientes);
 
-		p1 = permissionRepository.save(p1);
-		p2 = permissionRepository.save(p2);
-		p3 = permissionRepository.save(p3);
-		p4 = permissionRepository.save(p4);
+		permisoAdmin = permissionRepository.save(permisoAdmin);
+		permisoUsuario = permissionRepository.save(permisoUsuario);
+		permisoCliente = permissionRepository.save(permisoCliente);
+		permisoCesta = permissionRepository.save(permisoCesta);
 
-		userRepository.save(u1);
-		Usuario saveUsuario2 = userRepository.save(u2);
-		userRepository.save(u3);
-		userRepository.save(u4);
+		userRepository.save(usuario1);
+		Usuario saveUsuario2 = userRepository.save(usuario2);
+		userRepository.save(usuario3);
+		userRepository.save(usuario4);
 
-		assertTrue(u2.getPassword().equalsIgnoreCase(saveUsuario2.getPassword()));
+		assertTrue(usuario2.getPassword().equalsIgnoreCase(saveUsuario2.getPassword()));
 
 	}
 

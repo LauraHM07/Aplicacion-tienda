@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
@@ -24,6 +25,7 @@ import com.laura.springprojects.tienda.services.ClientesService;
 
 @Controller
 @RequestMapping("/clientes")
+@PreAuthorize("hasAnyAuthority('ADMIN', 'CLIENTE')")
 public class ClienteController {
 
     @Autowired

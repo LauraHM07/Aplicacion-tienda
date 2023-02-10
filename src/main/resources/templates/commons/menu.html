@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org"
-xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
 <body>
     <div th:fragment="menu">
@@ -14,16 +14,16 @@ xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0" sec:authorize="hasAuthority('ADMIN')">
+                        <li class="nav-item" sec:authorize="hasAuthority('ADMIN')">
                             <a class="nav-link active" aria-current="page" th:href="@{/}" href="index.html"
                                 th:text="#{menu.home}">Inicio</a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item" sec:authorize="hasAuthority('ADMIN')">
                             <a class="nav-link" th:href="@{/productos/list}" href="#"
                                 th:text="#{menu.productos}">Productos</a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item" sec:authorize="hasAuthority('ADMIN')">
                             <a class="nav-link" th:href="@{/clientes/list}" href="#"
                                 th:text="#{menu.clientes}">Clientes</a>
                         </li>
@@ -35,26 +35,26 @@ xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
                             <a class="nav-link" th:href="@{/vendedores/list}" href="#"
                                 th:text="#{menu.vendedores}">Vendedores</a>
                         </li> -->
-                        <li class="nav-item">
+                        <li class="nav-item" sec:authorize="hasAuthority('ADMIN')">
                             <a class="nav-link" th:href="@{/empleados/list}" href="#"
                                 th:text="#{menu.empleados}">Empleados</a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item" sec:authorize="hasAuthority('ADMIN')">
                             <a class="nav-link" th:href="@{/departamentos/list}" href="#"
                                 th:text="#{menu.departamentos}">Departamentos</a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item" sec:authorize="hasAnyAuthority('ADMIN','USER')">
                             <a class="nav-link" th:href="@{/pedidos/list}" href="#"
                                 th:text="#{menu.pedidos}">Pedidos</a>
                         </li>
                     </ul>
 
-                    <a href="#" th:href="@{/cesta/edit}" th:if="${session ne null and session.pedido ne null}" class="btn btn-secondary">
+                    <a href="#" th:href="@{/cesta/edit}" th:if="${session ne null and session.pedido ne null}" class="btn btn-secondary" sec:authorize="hasAuthority('ADMIN')">
                         <i class="bi bi-cart2"></i>
                     </a>
                     
 
-                    <ul class="navbar-nav">
+                    <ul class="navbar-nav" sec:authorize="hasAuthority('ADMIN')">
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                                 aria-expanded="false">
@@ -69,7 +69,7 @@ xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
                         </li>
                     </ul>
 
-                    <form class="d-flex" role="search">
+                    <form class="d-flex" role="search" sec:authorize="hasAuthority('ADMIN')">
                         <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search"
                             th:placeholder="#{menu.buscar}">
                         <button class="btn btn-outline-success" type="submit">

@@ -6,6 +6,7 @@ import java.util.Locale;
 
 import javax.servlet.http.HttpSession;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
@@ -24,6 +25,7 @@ import com.laura.springprojects.tienda.services.PedidosService;
 
 @Controller
 @RequestMapping("/pedidos")
+@PreAuthorize("hasAnyAuthority('ADMIN','USER', 'CESTA')")
 public class PedidoController {
     @Autowired
     PedidosService pedidosService;

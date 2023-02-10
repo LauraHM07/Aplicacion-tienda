@@ -2,6 +2,7 @@ package com.laura.springprojects.tienda.controllers;
 
 import java.util.List;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
@@ -21,6 +22,7 @@ import com.laura.springprojects.tienda.services.VendedoresService;
 
 @Controller
 @RequestMapping("/vendedores")
+@PreAuthorize("hasAnyAuthority('ADMIN')")
 public class VendedorController {
 
     @Autowired
