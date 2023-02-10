@@ -1,30 +1,29 @@
 package com.laura.springprojects.tienda.configuration;
 
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
-
 import com.laura.springprojects.tienda.services.UsuariosService;
 
+@Configuration
 public class SecurityConfig {
-    // Noop -> Que no tenga codificación
-    // @Bean
-    // public PasswordEncoder passwordEncoder(){
-    //     return PasswordEncoderFactories.createDelegatingPasswordEncoder();
-    //     //return NoOpPasswordEncoder.getInstance();
-    // }
 
     @Bean
     UsuariosService myUserService(){
         return new UsuariosService();
+    }
+    
+    @Bean
+    public PasswordEncoder passwordEncoder(){
+        return PasswordEncoderFactories.createDelegatingPasswordEncoder();
     }
 
     @Bean
@@ -45,18 +44,18 @@ public class SecurityConfig {
         return new InMemoryUserDetailsManager(user, admin);
     }
 
-    // @Bean
-    // public DaoAuthenticationProvider authenticationProvider(){
-    //     DaoAuthenticationProvider autProvider = new DaoAuthenticationProvider();
+    @Bean
+    public DaoAuthenticationProvider authenticationProvider(){
+        DaoAuthenticationProvider autProvider = new DaoAuthenticationProvider();
 
-    //     autProvider.setUserDetailsService(myUserService());
-    //     //autProvider.setPasswordEncoder(passwordEncoder());
+        autProvider.setUserDetailsService(myUserService());
+        autProvider.setPasswordEncoder(passwordEncoder());
 
-    //     return autProvider;
-    // }
+        return autProvider;
+    }
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         
         http
             .authorizeRequests()

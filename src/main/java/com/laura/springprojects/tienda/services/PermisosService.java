@@ -10,26 +10,27 @@ import com.laura.springprojects.tienda.repository.PermisoRepository;
 
 @Service
 public class PermisosService {
+
     @Autowired
-    private PermisoRepository permissionRepository;
+    private PermisoRepository permisoRepository;
 
-    public Permiso createPermiso(Permiso permission) {
-        return permissionRepository.save(permission);
+    public Permiso createPermiso(Permiso permiso) {
+        return permisoRepository.save(permiso);
     }
 
-    public Permiso updatePermiso(Permiso permission) {
-        return permissionRepository.save(permission);
+    public Permiso updatePermiso(Permiso permiso) {
+        return permisoRepository.save(permiso);
     }
 
-    public void deletePermiso(Long permissionId) {
-        permissionRepository.deleteById(permissionId);
+    public void deletePermiso(int permisoId) {
+        permisoRepository.deleteById(permisoId);
     }
 
-    public Permiso getPermiso(Long permissionId) {
-        return permissionRepository.findById(permissionId).orElse(null);
+    public Permiso getPermiso(int permisoId) {
+        return permisoRepository.findById(permisoId).orElse(null);
     }
 
     public List<Permiso> getAllPermisos() {
-        return permissionRepository.findAll();
+        return permisoRepository.findAll();
     }
 }

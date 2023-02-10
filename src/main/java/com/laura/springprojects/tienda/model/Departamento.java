@@ -17,7 +17,6 @@ public class Departamento {
     
     private String nombre;
 
-    //bi-directional many-to-many association to Emepleado
 	@ManyToMany
 	@JoinTable(
 		name="departamento_empleado"

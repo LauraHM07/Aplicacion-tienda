@@ -2,32 +2,42 @@ package com.laura.springprojects.tienda.model;
 
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
+@Table(name = "permissions")
 public class Permiso {
     
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int codigo;
+
+    @Column(name = "name")
     private String nombre;
 
     @ManyToMany(mappedBy = "permissions")
     private List<Usuario> users;
 
-    public Permiso() {
+    @Transient
+    private boolean hasPermission;
+
+    public Permiso(int codigo, String nombre) {
+        this.codigo = codigo;
+        this.nombre = nombre;
     }
 
     public Permiso(int codigo) {
         this.codigo = codigo;
     }
 
-    public Permiso(int codigo, String nombre) {
-        this.codigo = codigo;
-        this.nombre = nombre;
+    public Permiso() {
     }
 
     public int getCodigo() {
@@ -52,6 +62,14 @@ public class Permiso {
 
     public void setUsers(List<Usuario> users) {
         this.users = users;
+    }
+
+    public boolean isHasPermission() {
+        return hasPermission;
+    }
+
+    public void setHasPermission(boolean hasPermission) {
+        this.hasPermission = hasPermission;
     }
 
     @Override

@@ -29,11 +29,11 @@ public class UsuariosService implements UserDetailsService {
         return userRepository.save(user);
     }
 
-    public void deleteUser(Long userId) {
+    public void deleteUser(int userId) {
         userRepository.deleteById(userId);
     }
 
-    public Usuario getUser(Long userId) {
+    public Usuario getUser(int userId) {
         return userRepository.findById(userId).orElse(null);
     }
 
@@ -47,17 +47,18 @@ public class UsuariosService implements UserDetailsService {
         Usuario usuario = userRepository.findByNombre(username);
 
         List<Permiso> permisosUsuario = usuario.getPermissions();
-        List<GrantedAuthority> permisos = new ArrayList<GrantedAuthority>(permisosUsuario.size());
+        List<GrantedAuthority> permisos = new ArrayList<GrantedAuthority>();
+
         for (Permiso permiso : permisosUsuario){
             permisos.add(new SimpleGrantedAuthority(permiso.getNombre()));
         }
 
-        UserDetails user = org.springframework.security.core.userdetails.User.builder()
+        UserDetails userDetails = org.springframework.security.core.userdetails.User.builder()
             .username(usuario.getNombre())
             .password(usuario.getPassword())
             .authorities(permisos)
             .build();
         
-        return user;
+        return userDetails;
     }
 }

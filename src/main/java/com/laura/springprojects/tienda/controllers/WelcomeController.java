@@ -1,19 +1,13 @@
 package com.laura.springprojects.tienda.controllers;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class WelcomeController {
 
-    @RequestMapping(value = "/login2")
+    @RequestMapping(value = "/menuPrincipal")
     public String login(){
-        return "login2";
-    }
-
-    @GetMapping(value="/welcome")
-    public String welcome() {
-        return "welcome";
+        return "menuPrincipal";
     }
 }
