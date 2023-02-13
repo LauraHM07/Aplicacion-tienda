@@ -14,7 +14,7 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0" sec:authorize="hasAuthority('ADMIN')">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item" sec:authorize="hasAuthority('ADMIN')">
                             <a class="nav-link active" aria-current="page" th:href="@{/}" href="index.html"
                                 th:text="#{menu.home}">Inicio</a>
@@ -23,7 +23,7 @@
                             <a class="nav-link" th:href="@{/productos/list}" href="#"
                                 th:text="#{menu.productos}">Productos</a>
                         </li>
-                        <li class="nav-item" sec:authorize="hasAuthority('ADMIN')">
+                        <li class="nav-item" sec:authorize="hasAnyAuthority('ADMIN','CLIENTE')">
                             <a class="nav-link" th:href="@{/clientes/list}" href="#"
                                 th:text="#{menu.clientes}">Clientes</a>
                         </li>
@@ -43,7 +43,7 @@
                             <a class="nav-link" th:href="@{/departamentos/list}" href="#"
                                 th:text="#{menu.departamentos}">Departamentos</a>
                         </li>
-                        <li class="nav-item" sec:authorize="hasAnyAuthority('ADMIN','USER')">
+                        <li class="nav-item" sec:authorize="hasAnyAuthority('ADMIN','CESTA')">
                             <a class="nav-link" th:href="@{/pedidos/list}" href="#"
                                 th:text="#{menu.pedidos}">Pedidos</a>
                         </li>
