@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="commons/header :: header" />
+
+<body>
+    <div th:replace="commons/menu :: menu" />
+
+    <div class="container">
+        <main>
+
+            <div class="row g-5">
+                <div class="col-8">
+                    <h4 class="mb-3">Datos Nota</h4>
+
+                    <form class="needs-validation" method="post" th:action="@{/notas/update}" novalidate>
+                        <input type="hidden" name="id" th:value="${nota.id}">
+
+                        <div class="row g-4">
+                            <div class="col-sm-6">
+                                <label for="titulo" class="form-label">Título</label>
+                                <input type="titulo" class="form-control" id="titulo" name="titulo" th:value="${nota.titulo}">
+                            </div>
+
+                            <div class="col-sm-6">
+                                <label for="fecha" class="form-label">Fecha</label>
+                                <input type="text" class="form-control" id="fecha" name="fecha" th:value="${nota.fecha}">
+                            </div>
+
+                            <div class="col-sm-6">
+                                <label for="descripcion" class="form-label">Descripción</label>
+                                <input type="text" class="form-control" id="descripcion" name="descripcion" th:value="${nota.descripcion}">
+                            </div>
+
+                        </div>
+
+                        <hr class="my-4">
+
+                        <div class="col-sm-12">
+                            <div class="btn-group">
+                                <button class="btn btn-primary" type="submit">Actualizar</button>
+                                <a th:href="@{/notas/list}" href="list.html" class="btn btn-danger">Cancelar</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <div th:replace="commons/footer :: footer" class="container"></div>
+
+</body>
+
+</html>

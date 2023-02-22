@@ -49,7 +49,10 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" th:href="@{/contactos/list}" href="contactos/list.html">Contactos</a>
-                          </li>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/notas/list}" href="notas/list.html">Notas</a>
+                        </li>
                     </ul>
 
                     <a href="#" th:href="@{/cesta/edit}" th:if="${session ne null and session.pedido ne null}" class="btn btn-secondary" sec:authorize="hasAuthority('ADMIN')">
