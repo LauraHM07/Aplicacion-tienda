@@ -23,7 +23,7 @@ public class NotasServiceImpl implements NotasService {
     @Override
     public List<Nota> findAll() {
         
-        Nota[] nota2 = restTemplate.getForObject(urlNota + "notas", Nota[].class);
+        Nota[] nota2 = restTemplate.getForObject(urlNota + "lista", Nota[].class);
         List<Nota> notas = Arrays.asList(nota2);
 
         return notas;
@@ -31,26 +31,26 @@ public class NotasServiceImpl implements NotasService {
 
     @Override
     public Nota findByID(int id) {
-        Nota nota2 = restTemplate.getForObject(urlNota + "notas/" + id, Nota.class);
+        Nota nota2 = restTemplate.getForObject(urlNota + "buscar/" + id, Nota.class);
 
         return nota2;
     }
 
     @Override
     public Nota insert(Nota nota) {
-        Nota nota2 = restTemplate.postForObject(urlNota + "notas", nota, Nota.class);
+        Nota nota2 = restTemplate.postForObject(urlNota + "nueva", nota, Nota.class);
 
         return nota2;
     }
 
     @Override
     public void update(Nota nota) {
-        restTemplate.put(urlNota + "notas/" + nota.getId(), nota);
+        restTemplate.put(urlNota + "editar/" + nota.getId(), nota);
     }
 
     @Override
     public void delete(int id) {
-        restTemplate.delete(urlNota + "notas/" + id);
+        restTemplate.delete(urlNota + "borrar/" + id);
         
     }
 }
