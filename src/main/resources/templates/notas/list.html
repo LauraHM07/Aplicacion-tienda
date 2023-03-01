@@ -46,26 +46,21 @@
                 <h5>Buscar Notas</h5>
             </div>
 
-            <form class="needs-validation" method="post" novalidate>
-                <div class="row g-4">
-                    <div class="col-sm-3">
-                        <label for="titulo" class="form-label">Título</label>
-                        <input type="titulo" class="form-control" id="titulo" name="titulo">
-                    </div>
+            <form class="row g-3" method="get" th:action="@{/notas/buscar}">
+                <div class="col-sm-6">
+                  <div class="col-md-6">
+                    <label for="titulo" class="form-label">Titulo </label>
+                    <input type="text" class="form-control" id="titulo" name="titulo">
+                  </div>
 
-                    <div class="col-sm-3">
-                        <label for="fecha" class="form-label">Fecha</label>
-                        <input type="text" class="form-control" id="fecha" name="fecha">
-                    </div>
-
-                    <div class="col-sm-3">
-                        <br>
-                        <button class="btn btn-success" type="submit">
-                            <i class="bi bi-search"></i>
-                        </button>
-                    </div>
+                  <div class="col-md-6"> 
+                    <label for="fecha" class="form-label">Fecha </label>
+                    <input type="text" class="form-control" id="fecha" name="fecha">
+                  </div>
+                  
+                    <button class="btn btn-primary" type="submit">Buscar</button>
                 </div>
-            </form>
+              </form>  
         </div>
     </div>
 
