@@ -42,7 +42,7 @@ public class NotaController {
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("nota", new Nota());
-        modelAndView.setViewName("notas/create");
+        modelAndView.setViewName("notas/new");
 
         return modelAndView;
     }
@@ -72,7 +72,7 @@ public class NotaController {
 
     @PostMapping(path = { "/update" })
     public ModelAndView update(Nota nota) {
-
+        
         notasService.update(nota);
 
         ModelAndView modelAndView = new ModelAndView();

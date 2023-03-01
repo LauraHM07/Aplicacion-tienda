@@ -31,7 +31,7 @@
                         <tr>
                             <th scope="row" th:text="${nota.id}">1</th>
                             <td th:text="${nota.titulo}">Ejemplo</td>
-                            <td th:text="${#dates.format(nota.fecha, 'dd-MMM-yyyy')}">11-11-1111</td>
+                            <td th:text="${#dates.format(nota.fecha, 'dd/MM/yyyy')}">11-11-1111</td>
                             <td th:text="${nota.descripcion}">Email</td>
                             <td>
                                 <a th:href="@{/notas/edit/}+${nota.id}" href="#" class="btn btn-primary bi bi-pen"></a>
@@ -57,6 +57,8 @@
                     <label for="fecha" class="form-label">Fecha </label>
                     <input type="text" class="form-control" id="fecha" name="fecha">
                   </div>
+
+                  <br>
                   
                     <button class="btn btn-primary" type="submit">Buscar</button>
                 </div>
