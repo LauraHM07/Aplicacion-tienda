@@ -14,8 +14,6 @@
                     <h4 class="mb-3">Datos Nota</h4>
 
                     <form class="needs-validation" method="post" th:action="@{/notas/save}" novalidate>
-                        <input type="hidden" name="id" th:value="${nota.id}">
-
                         <div class="row g-4">
                             <div class="col-sm-6">
                                 <label for="titulo" class="form-label">Título</label>

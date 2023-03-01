@@ -5,12 +5,16 @@ import java.util.Date;
 public class Nota {
 
     private int id;
-    
     private String titulo;
-
     private Date fecha;
-
     private String descripcion;
+
+    public Nota() {
+    }
+
+    public Nota(int id) {
+        this.id = id;
+    }
 
     public int getId() {
         return id;

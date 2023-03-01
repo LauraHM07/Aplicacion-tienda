@@ -1,5 +1,6 @@
 package com.laura.springprojects.tienda.services;
 
+import java.util.Date;
 import java.util.List;
 
 import com.laura.springprojects.tienda.model.Nota;
@@ -15,4 +16,6 @@ public interface NotasService {
     public void update(Nota nota);
 
     public void delete(int id);
+
+    public List<Nota> findByCriteria(String titulo, Date fecha);
 }

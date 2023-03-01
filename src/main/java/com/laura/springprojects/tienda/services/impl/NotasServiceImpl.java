@@ -1,7 +1,13 @@
 package com.laura.springprojects.tienda.services.impl;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -22,35 +28,49 @@ public class NotasServiceImpl implements NotasService {
 
     @Override
     public List<Nota> findAll() {
-        
-        Nota[] nota2 = restTemplate.getForObject(urlNota + "lista", Nota[].class);
-        List<Nota> notas = Arrays.asList(nota2);
+        Nota[] nt = restTemplate.getForObject(urlNota + "notas", Nota[].class);
+        List<Nota> notas = Arrays.asList(nt);
 
         return notas;
     }
 
     @Override
     public Nota findByID(int id) {
-        Nota nota2 = restTemplate.getForObject(urlNota + "buscar/" + id, Nota.class);
+        Nota nt = restTemplate.getForObject(urlNota + "notas/" + id, Nota.class);
 
-        return nota2;
+        return nt;
     }
 
     @Override
     public Nota insert(Nota nota) {
-        Nota nota2 = restTemplate.postForObject(urlNota + "nueva", nota, Nota.class);
+        Nota nt = restTemplate.postForObject(urlNota + "notas", nota, Nota.class);
 
-        return nota2;
+        return nt;
     }
 
     @Override
     public void update(Nota nota) {
-        restTemplate.put(urlNota + "editar/" + nota.getId(), nota);
+        restTemplate.put(urlNota + "notas/" + nota.getId(), nota);
     }
 
     @Override
     public void delete(int id) {
-        restTemplate.delete(urlNota + "borrar/" + id);
+        restTemplate.delete(urlNota + "notas/" + id);
+    }
+
+    @Override
+    public List<Nota> findByCriteria(String titulo, Date fecha) {
+
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        String date = dateFormat.format(fecha);
+
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("titulo", titulo);
+        params.put("fecha", date);
         
+        Nota[] nt = restTemplate.getForObject(urlNota + "notas/buscar?titulo={titulo}&fecha={fecha}", Nota[].class, params);
+        List<Nota> notas = Arrays.asList(nt);
+
+        return notas;
     }
 }

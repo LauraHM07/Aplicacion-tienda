@@ -1,15 +1,19 @@
 package com.laura.springprojects.tienda.controllers;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.laura.springprojects.tienda.model.Nota;
@@ -21,7 +25,7 @@ public class NotaController {
     
     @Autowired
     NotasService notasService;
-
+    
     @GetMapping(value = "/list")
     public ModelAndView listPage(Model model) {
 
@@ -38,7 +42,7 @@ public class NotaController {
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("nota", new Nota());
-        modelAndView.setViewName("notas/new");
+        modelAndView.setViewName("notas/create");
 
         return modelAndView;
     }
@@ -46,10 +50,10 @@ public class NotaController {
     @PostMapping(path = "/save")
     public ModelAndView save(Nota nota) throws IOException {
 
-        Nota nota2 = notasService.insert(nota);
+        Nota nt = notasService.insert(nota);
 
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("redirect:edit/" + nota2.getId());
+        modelAndView.setViewName("redirect:edit/" + nt.getId());
 
         return modelAndView;
     }
@@ -86,6 +90,19 @@ public class NotaController {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("redirect:/notas/list");
 
+        return modelAndView;
+    }
+
+    @GetMapping(value="/buscar")
+    public ModelAndView findByCriteria(@RequestParam("titulo") String titulo,
+        @RequestParam @DateTimeFormat(pattern = "dd/MM/yyyy") Date fecha) {
+
+        List<Nota> notasEncontradas = notasService.findByCriteria(titulo, fecha);
+
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("notas", notasEncontradas);
+        modelAndView.setViewName("notas/list");
+        
         return modelAndView;
     }
 }
