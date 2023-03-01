@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="commons/header :: header" />
+
+<body>
+    <div th:replace="commons/menu :: menu" />
+
+    <div class="container">
+        <main>
+
+            <div class="row g-5">
+
+                <div class="col-8">
+                    <h4 class="mb-3" th:text="#{departamento.dato}">Datos Departamento</h4>
+
+                    <form class="needs-validation" method="post" th:action="@{/departamentos/save}" novalidate>
+                        <div class="row g-4">
+                            <div class="col-sm-6">
+                                <label for="nombre" class="form-label" th:text="#{nombre}">Nombre</label>
+
+                                <input type="text" class="form-control" id="nombre" name="nombre" placeholder="" th:value="${departamento.nombre}" value="" required>
+
+                                <div class="invalid-feedback">
+                                    Nombre requerido.
+                                </div>
+                            </div>
+                        </div>
+
+                        <hr class="my-4">
+
+                        <div class="col-sm-12">
+                            <div class="btn-group">
+                                <button class="btn btn-success" type="submit" th:text="#{boton.crear}">Crear</button>
+                                <a class="btn btn-danger" th:href="@{/departamentos/list}" href="#" role="button" th:text="#{boton.cancelar}">Cancelar</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </main>
+
+    </div>
+
+    <div th:replace="commons/footer :: footer" class="container"></div>
+
+</body>
+
+</html>
