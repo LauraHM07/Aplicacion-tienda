@@ -2,10 +2,14 @@ package com.laura.springprojects.tienda.model;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class Nota {
 
     private int id;
     private String titulo;
+
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private Date fecha;
     private String descripcion;
 

@@ -23,7 +23,7 @@
 
                             <div class="col-sm-6">
                                 <label for="fecha" class="form-label">Fecha</label>
-                                <input type="text" class="form-control" id="fecha" name="fecha" full-date="date-fullyear '-' date-month '-' date-mday" th:value="${nota.fecha}" th:text="${#dates.format(nota.fecha, 'dd/MM/yyyy')}">
+                                <input type="text" class="form-control" id="fecha" name="fecha" full-date="date-fullyear '-' date-month '-' date-mday" th:value="${#dates.format(nota.fecha, 'dd/MM/yyyy')}">
                             </div>
 
                             <div class="col-sm-6">
